@@ -32,7 +32,7 @@ export default function ChatbotForm() {
     reset,
     // getValues
   } = useForm({
-    resolver: yupResolver(schema || schemas.formType || dummySchema),
+    resolver: yupResolver(schema),
   });
 
   const formAction = (data) => {
@@ -71,7 +71,8 @@ export default function ChatbotForm() {
             control={control}
             name={"phone_no"}
             rules={{ required: true }}
-            // placeholder={"+1772XXXXX78"}
+            placeholder={"+1772XXXXX78"}
+            defaultValue={""}
             render={({ field: { ref, ...field } }) => (
               <PhoneInput
                 {...field}
@@ -79,11 +80,13 @@ export default function ChatbotForm() {
                 className="form-input"
                 containerStyle={{ padding: "8px" }}
                 country={"us"}
+                enableSearch={true}
+                inputStyle={{ textAlign: "left" }}
                 // name="phone_no"
-                placeholder="+1772XXXXX78"
+                placeholder={field.placeholder}
                 onChange={(val) => {
                   console.log(val);
-                  field.onChange(`+${val}`);
+                  field.onChange(val.trim() ? `+${val}` : "");
                 }}
               />
             )}

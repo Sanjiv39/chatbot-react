@@ -3,7 +3,7 @@ import React from "react";
 import { App } from "../Container";
 
 export default function ChatbotMessage({
-  message = { type: "from", text: "Hi", loading: false },
+  message = { type: "from", text: "Hi", loading: false, className: "" },
 }) {
   const context = useContext(App);
   const messageRef = useRef();
@@ -26,11 +26,7 @@ export default function ChatbotMessage({
     <div
       ref={messageRef}
       className={`chatbox-message ${message.type || ""} ${
-        message.type === "to"
-          ? "chatbox-slide"
-          : message.type === "from" && !message.loading
-          ? "chatbox-fade"
-          : ""
+        message.className || ""
       }`}
     >
       {message.type === "from" && (

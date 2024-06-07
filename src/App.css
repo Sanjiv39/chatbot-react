@@ -574,3 +574,14 @@ iframe {
 .react-tel-input .country-list {
   width: 200px;
 }
+.react-tel-input .country-list .search{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px;
+}
+.react-tel-input .country-list .search-box{
+  margin: 0;
+  width: 100%;
+}

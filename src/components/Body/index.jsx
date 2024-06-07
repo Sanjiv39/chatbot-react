@@ -5,7 +5,7 @@ import { getTime } from "../Container";
 import { getResponse } from "../apis/apis";
 
 export default function ChatbotBody({
-  message = { type: "to", text: "", time },
+  message = { type: "to", text: "", time, className: "" },
 }) {
   const context = useContext(App);
   const [messages, setMessages] = useState(context.messages || []);
@@ -28,11 +28,30 @@ export default function ChatbotBody({
 
   useEffect(() => {
     console.log(messages);
+    const arr = [...messages];
+    context.setMessages(arr);
   }, [messages]);
 
   useEffect(() => {
-    message && setMessages((prev) => [...prev, { ...message }]);
-    message && sendMessagetoApi();
+    if (message) {
+      setMessages((prev) => [
+        ...prev,
+        { ...message, className: "chatbox-slide" },
+      ]);
+      // remove animation class
+      setTimeout(() => {
+        setMessages((prev) =>
+          [...prev].filter((msg) => {
+            if (msg.type === "to") {
+              msg.className = "";
+            }
+            return msg;
+          })
+        );
+      }, 200);
+      sendMessagetoApi();
+    }
+    context.setMessage(null);
   }, [message]);
 
   const sendMessagetoApi = async () => {
@@ -56,6 +75,7 @@ export default function ChatbotBody({
             type: "from",
             text: res.data.data.message.replace("\n\nHumaChat:", "").trim(),
             time: time,
+            className: "chatbox-fade",
           };
           setTimeout(() => {
             setMessages((prev) => {
@@ -65,6 +85,17 @@ export default function ChatbotBody({
               return arr;
             });
             context.setLoading(false);
+            // remove animation class
+            setTimeout(() => {
+              setMessages((prev) =>
+                [...prev].filter((msg) => {
+                  if (msg.type === "from") {
+                    msg.className = "";
+                  }
+                  return msg;
+                })
+              );
+            }, 200);
           }, 800);
           return;
         }
