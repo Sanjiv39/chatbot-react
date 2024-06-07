@@ -86,9 +86,9 @@ export default function ChatbotContainer() {
       <div className="chat-container">
         <div className={`chatbox ${active ? "active" : ""}`}>
           <ChatbotHeader />
-          {!form && <ChatbotBody message={message} />}
-          {!form && <ChatbotInput />}
-          {form && <ChatbotForm />}
+          <ChatbotBody message={message} />
+          <ChatbotInput />
+          {/* {form && <ChatbotForm />} */}
           <ChatbotFooter />
         </div>
         <button className="open-chat-btn" onClick={toggleActive}>

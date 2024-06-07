@@ -39,7 +39,7 @@ export default function ChatbotInput() {
       <button
         ref={sendButton}
         className="chatbox-send-btn"
-        disabled={context.loading || !message.trim()}
+        disabled={context.form || context.loading || !message.trim()}
         onClick={!context.loading && handleSendMessage}
       >
         <BsSend color="black" style={{ transform: "rotate(45deg)" }} />

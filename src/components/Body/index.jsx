@@ -3,6 +3,7 @@ import ChatbotMessage from "../Message";
 import { App } from "../Container";
 import { getTime } from "../Container";
 import { getResponse } from "../apis/apis";
+import ChatbotForm from "../Form";
 
 export default function ChatbotBody({
   message = { type: "to", text: "", time, className: "" },
@@ -120,14 +121,17 @@ export default function ChatbotBody({
         {messages.length > 0 &&
           messages.map((msg) => <ChatbotMessage message={msg} />)}
       </div>
-      <button
-        className="open-form-btn"
-        onClick={() => {
-          context.setForm(true);
-        }}
-      >
-        Share your Contact details
-      </button>
+      {!context.form && (
+        <button
+          className="open-form-btn"
+          onClick={() => {
+            context.setForm(true);
+          }}
+        >
+          Share your Contact details
+        </button>
+      )}
+      {context.form && <ChatbotForm />}
     </div>
   );
 }
