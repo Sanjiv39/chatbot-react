@@ -57,7 +57,7 @@ export default function ChatbotContainer() {
       console.log(data);
       setUserData(data);
     });
-    let root = document.querySelector("#huma-chat-container");
+    let root = document.querySelector(".huma-chat-container");
     console.log(root.getAttribute("style"));
     root.setAttribute("style", "--theme-color : green;");
   }, []);
