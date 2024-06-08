@@ -87,14 +87,18 @@ export default function ChatbotContainer() {
         // console.log(data);
         const updated = updateColor(data);
         // console.log(`Color was ${!updated ? "not" : ""} updated`);
-        if (updated && data) {
-          acknowledgeParent();
-        }
       } catch (err) {
         // console.log("error message");
       }
     });
   }, []);
+
+  useEffect(() => {
+    console.log(parent, origin);
+    if (origin && parent) {
+      acknowledgeParent();
+    }
+  }, [origin, parent]);
 
   return (
     <button
@@ -108,6 +112,7 @@ export default function ChatbotContainer() {
           },
         };
         parent && origin && parent.postMessage(message, origin);
+        console.log("chatbot open by button");
       }}
     >
       <RiChat1Line />
