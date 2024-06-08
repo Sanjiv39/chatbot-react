@@ -1,7 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import secureLocalStorage from "react-secure-storage";
 import lightOrdarkColor from "@check-light-or-dark/color";
-import { RiChat1Line } from "react-icons/ri";
 import ChatbotHeader from "../Header";
 import ChatbotBody from "../Body";
 import ChatbotFooter from "../Footer";
@@ -95,6 +94,20 @@ export default function ChatbotContainer() {
     setActive((prev) => !prev);
   };
 
+  const acknowledgeParent = () => {
+    if (parent && origin) {
+      const message = {
+        source: "huma-chatbot-child",
+        data: {
+          type: "acknowledgement",
+          message: "Hi from button",
+        },
+      };
+      parent.postMessage(message, origin);
+      console.log("click closed by chatbot");
+    }
+  };
+
   useEffect(() => {
     // if (!userData) {
     // secureLocalStorage.setItem("__us_uD__", {
@@ -117,6 +130,7 @@ export default function ChatbotContainer() {
           e.data.source === "huma-chatbot-parent"
         ) {
           // console.log(e.origin);
+          console.log("got msg by parent");
           setParent(e.source);
           setOrigin(e.origin.trim());
           // console.log("source updated");
@@ -127,6 +141,9 @@ export default function ChatbotContainer() {
         // console.log(data);
         const updated = updateColor(data);
         // console.log(`Color was ${!updated ? "not" : ""} updated`);
+        if (updated && data) {
+          acknowledgeParent();
+        }
       } catch (err) {
         // console.log("error message");
       }
@@ -136,6 +153,11 @@ export default function ChatbotContainer() {
   useEffect(() => {
     console.log(userData);
   }, [userData]);
+
+  useEffect(() => {
+    console.log(parent, origin);
+  }, [origin, parent]);
+
   return (
     <App.Provider
       value={{
@@ -166,6 +188,7 @@ export default function ChatbotContainer() {
                 },
               };
               parent && origin && parent.postMessage(message, origin);
+              console.log("click closed by chatbot");
             }}
           />
           <ChatbotBody message={message} />
