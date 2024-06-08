@@ -54,6 +54,20 @@ export default function ChatbotContainer() {
   const [parent, setParent] = useState(null);
   const [origin, setOrigin] = useState("");
 
+  const acknowledgeParent = () => {
+    if (parent && origin) {
+      const message = {
+        source: "huma-chatbot-child",
+        data: {
+          type: "acknowledgement",
+          message: "Hi from button",
+        },
+      };
+      parent.postMessage(message, origin);
+      console.log("click closed by chatbot");
+    }
+  };
+
   useEffect(() => {
     window.addEventListener("message", (e) => {
       try {
@@ -73,6 +87,9 @@ export default function ChatbotContainer() {
         // console.log(data);
         const updated = updateColor(data);
         // console.log(`Color was ${!updated ? "not" : ""} updated`);
+        if (updated && data) {
+          acknowledgeParent();
+        }
       } catch (err) {
         // console.log("error message");
       }
