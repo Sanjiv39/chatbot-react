@@ -1,8 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
-:root{
+:root {
   --theme-color: #13294b;
   --font-color: white;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 button {
@@ -18,9 +24,6 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
   border-radius: 50%;
   height: 50px;
   width: 50px;
@@ -28,6 +31,11 @@ button {
   background: var(--theme-color);
   cursor: pointer;
   align-self: flex-end;
+  color: var(--font-color);
+}
+.open-chat-btn svg {
+  width: 100%;
+  height: 100%;
 }
 
 .open-chat-btn:hover {
