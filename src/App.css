@@ -18,16 +18,6 @@ button {
   color: inherit;
   -webkit-tap-highlight-color: transparent;
 }
-.huma-chat-container a {
-  -webkit-tap-highlight-color: transparent;
-  text-decoration: none;
-}
-.huma-chat-container input {
-  border: none;
-  outline: none;
-  font: inherit;
-  color: inherit;
-}
 
 .chat-container {
   font-family: "Poppins", sans-serif;
