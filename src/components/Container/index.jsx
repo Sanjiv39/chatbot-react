@@ -130,7 +130,7 @@ export default function ChatbotContainer() {
           e.data.source === "huma-chatbot-parent"
         ) {
           // console.log(e.origin);
-          console.log("got msg by parent");
+          // console.log("got msg by parent");
           setParent(e.source);
           setOrigin(e.origin.trim());
           // console.log("source updated");
@@ -141,9 +141,7 @@ export default function ChatbotContainer() {
         // console.log(data);
         const updated = updateColor(data);
         // console.log(`Color was ${!updated ? "not" : ""} updated`);
-        if (updated && data) {
-          acknowledgeParent();
-        }
+        // console.log(Boolean(updated && data));
       } catch (err) {
         // console.log("error message");
       }
@@ -151,11 +149,14 @@ export default function ChatbotContainer() {
   }, []);
 
   useEffect(() => {
-    console.log(userData);
+    // console.log(userData);
   }, [userData]);
 
   useEffect(() => {
     console.log(parent, origin);
+    if (origin && parent) {
+      acknowledgeParent();
+    }
   }, [origin, parent]);
 
   return (
@@ -188,7 +189,7 @@ export default function ChatbotContainer() {
                 },
               };
               parent && origin && parent.postMessage(message, origin);
-              console.log("click closed by chatbot");
+              console.log("chatbot closed by chatbot");
             }}
           />
           <ChatbotBody message={message} />
