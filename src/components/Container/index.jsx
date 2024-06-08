@@ -1,12 +1,11 @@
 import React, { createContext, useEffect, useState } from "react";
 import secureLocalStorage from "react-secure-storage";
+import lightOrdarkColor from "@check-light-or-dark/color";
 import { RiChat1Line } from "react-icons/ri";
-import { getResponse } from "../apis/apis";
 import ChatbotHeader from "../Header";
 import ChatbotBody from "../Body";
 import ChatbotFooter from "../Footer";
 import ChatbotInput from "../Input";
-import ChatbotForm from "../Form";
 
 export const App = createContext();
 
@@ -26,6 +25,54 @@ export const getTime = (date = new Date()) => {
   return str;
 };
 
+const getDataFromChannel = (msg) => {
+  try {
+    if (msg.source === "huma-chatbot-parent" && msg.data.type === "update") {
+      const data = msg.data.data;
+      const obj = {
+        type: msg.data.type,
+        data: {
+          theme: data.theme,
+          avatar: data.avatar,
+          name: data.name,
+        },
+      };
+      for (const key in obj.data) {
+        const val = Boolean(obj.data[key].trim());
+        if (!val) {
+          delete obj[key];
+        }
+      }
+      return obj;
+    }
+    return null;
+  } catch (err) {
+    // console.log(err);
+    return null;
+  }
+};
+
+const updateColor = (data) => {
+  try {
+    if (data) {
+      let botData = data.data;
+      let root = document.querySelector(":root");
+      if (root && botData.theme) {
+        const theme = lightOrdarkColor(botData.theme);
+        // console.log(theme);
+        let style = `--theme-color: ${botData.theme}; --font-color: ${
+          theme === "light" ? "black" : "white"
+        } ;`;
+        theme && root.setAttribute("style", style.trim());
+        return true;
+      }
+      return false;
+    }
+  } catch (err) {
+    return false;
+  }
+};
+
 export default function ChatbotContainer() {
   const [userData, setUserData] = useState(
     secureLocalStorage.getItem("__us_uD__")
@@ -41,25 +88,49 @@ export default function ChatbotContainer() {
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState(false);
 
+  const [parent, setParent] = useState(null);
+  const [origin, setOrigin] = useState("");
+
   const toggleActive = () => {
     setActive((prev) => !prev);
   };
 
   useEffect(() => {
     // if (!userData) {
-    secureLocalStorage.setItem("__us_uD__", {
-      email: "user@gmail.com",
-      "phone-no": "+916678989789",
-    });
+    // secureLocalStorage.setItem("__us_uD__", {
+    //   email: "user@gmail.com",
+    //   "phone-no": "+916678989789",
+    // });
     // }
     window.addEventListener("storage", () => {
       const data = secureLocalStorage.getItem("__us_uD__");
       console.log(data);
       setUserData(data);
     });
-    let root = document.querySelector(".huma-chat-container");
-    console.log(root.getAttribute("style"));
-    root.setAttribute("style", "--theme-color : green;");
+
+    // Update colors and bot data
+    window.addEventListener("message", (e) => {
+      try {
+        if (
+          e.origin.trim() &&
+          e.source &&
+          e.data.source === "huma-chatbot-parent"
+        ) {
+          // console.log(e.origin);
+          setParent(e.source);
+          setOrigin(e.origin.trim());
+          // console.log("source updated");
+        }
+        const msg = e.data;
+        // console.log(msg);
+        const data = getDataFromChannel(msg);
+        // console.log(data);
+        const updated = updateColor(data);
+        // console.log(`Color was ${!updated ? "not" : ""} updated`);
+      } catch (err) {
+        // console.log("error message");
+      }
+    });
   }, []);
 
   useEffect(() => {
@@ -84,16 +155,26 @@ export default function ChatbotContainer() {
       }}
     >
       <div className="chat-container">
-        <div className={`chatbox ${active ? "active" : ""}`}>
-          <ChatbotHeader />
+        <div className={`chatbox active`}>
+          <ChatbotHeader
+            onClose={() => {
+              const message = {
+                source: "huma-chatbot-child",
+                data: {
+                  type: "toggle",
+                  value: false,
+                },
+              };
+              parent && origin && parent.postMessage(message, origin);
+            }}
+          />
           <ChatbotBody message={message} />
           <ChatbotInput />
-          {/* {form && <ChatbotForm />} */}
           <ChatbotFooter />
         </div>
-        <button className="open-chat-btn" onClick={toggleActive}>
+        {/* <button className="open-chat-btn" onClick={toggleActive}>
           <RiChat1Line />
-        </button>
+        </button> */}
       </div>
     </App.Provider>
   );

@@ -1,18 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
-iframe {
-  border: none;
-  outline: none;
-}
-.huma-chat-container {
-  --theme-color: #13294b;
-  --font-color: white;
-  position: fixed;
-  top: 0;
-  left: 0;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-#huma-chat-container button {
+:root {
+  --theme-color: #13294b;
+  --font-color: white;
+}
+
+button {
   border: none;
   outline: none;
   font: inherit;
@@ -39,10 +38,7 @@ iframe {
   z-index: 100;
 }
 
-.chat-container * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+.chat-container {
   text-align: center;
 }
 
@@ -132,10 +128,10 @@ iframe {
 /* Chatbox */
 .chatbox {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 0px;
+  right: 0px;
   z-index: 105;
-  max-height: 85vh;
+  /* max-height: 85vh; */
   height: 0px;
   width: 0px;
   opacity: 0;
@@ -145,17 +141,20 @@ iframe {
   border-radius: 16px;
   background: #fff;
   box-shadow: 0px 5px 8px grey;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
+    rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
+    rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  transition: height ease 400ms, width ease 400ms, opacity ease 300ms,
-    padding ease 100ms;
+  /* transition: height ease 400ms, width ease 400ms, opacity ease 300ms,
+    padding ease 100ms; */
 }
 
 .chatbox.active {
-  height: 520px;
-  width: 300px;
+  height: 100dvh;
+  width: 100dvw;
   opacity: 1;
 }
 
@@ -424,21 +423,18 @@ iframe {
 }
 
 @media screen and (max-width: 768px) {
-  .chatbox-body-overflow {
-    overflow: hidden;
-  }
   .chatbox {
     border-radius: 0;
-    max-height: none;
+    /* max-height: none;
     min-width: 0;
-    width: 100vw;
+    width: 100dvw;
     top: 0;
     left: 0;
     right: 0;
     bottom: initial;
-    right: initial;
+    right: initial; */
   }
-  .chatbox.active {
+  /* .chatbox.active {
     overflow: hidden;
     bottom: 0;
     border-radius: 0;
@@ -447,7 +443,7 @@ iframe {
     border-right: 0px;
     width: 100dvw;
     height: 100dvh;
-  }
+  } */
 }
 
 /* Dots animation------------------------------------------------------------------------------- */

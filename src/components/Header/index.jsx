@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import { App } from "../Container";
 
-export default function ChatbotHeader() {
+export default function ChatbotHeader({ onClose = () => {} }) {
   const context = useContext(App);
   return (
     <div className="chatbox-header">
@@ -23,6 +23,7 @@ export default function ChatbotHeader() {
         className="chatbox-close-btn"
         onClick={() => {
           context.setActive(false);
+          onClose();
         }}
       >
         <IoCloseOutline />
