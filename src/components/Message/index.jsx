@@ -1,14 +1,22 @@
 import { useContext, useEffect, useRef } from "react";
 import React from "react";
+import { Typewriter } from "react-simple-typewriter";
 import { App } from "../Container";
 
 export default function ChatbotMessage({
-  message = { type: "from", text: "Hi", loading: false, className: "" },
+  message = {
+    type: "from",
+    text: "Hi",
+    loading: false,
+    className: "",
+    typer: false,
+  },
 }) {
   const context = useContext(App);
   const messageRef = useRef();
 
   useEffect(() => {
+    // console.log(message);
     if (messageRef.current) {
       if (message.type === "to") {
         setTimeout(() => {
@@ -22,6 +30,7 @@ export default function ChatbotMessage({
     }
     messageRef.current?.scrollIntoView();
   }, [message, messageRef]);
+
   return (
     <div
       ref={messageRef}
@@ -41,7 +50,19 @@ export default function ChatbotMessage({
             />
           </div>
           {!message.loading && message.text?.trim() && (
-            <div className="message">{message.text}</div>
+            <div className="message">
+              {message.typer ? (
+                <Typewriter
+                  words={[message.text]}
+                  typeSpeed={50}
+                  onDelay={() => {
+                    console.log("delayed");
+                  }}
+                />
+              ) : (
+                message.text
+              )}
+            </div>
           )}
           {message.loading && (
             <div className="message">

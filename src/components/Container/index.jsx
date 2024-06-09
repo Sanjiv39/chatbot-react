@@ -86,6 +86,7 @@ export default function ChatbotContainer() {
   const [active, setActive] = useState(false);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState(false);
+  const [formClosed, setFormClosed] = useState(false);
 
   const [parent, setParent] = useState(null);
   const [origin, setOrigin] = useState("");
@@ -159,6 +160,19 @@ export default function ChatbotContainer() {
     }
   }, [origin, parent]);
 
+  useEffect(() => {
+    if (
+      loading &&
+      messages.filter((msg) => msg.type === "from" && !msg.loading).length >
+        4 &&
+      !formClosed
+    ) {
+      setForm(true);
+    } else if (loading && !formClosed) {
+      setForm(false);
+    }
+  }, [messages, loading, form, formClosed]);
+
   return (
     <App.Provider
       value={{
@@ -175,6 +189,8 @@ export default function ChatbotContainer() {
         setLoading,
         form,
         setForm,
+        formClosed,
+        setFormClosed,
       }}
     >
       <div className="chat-container">

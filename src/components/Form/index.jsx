@@ -66,6 +66,7 @@ export default function ChatbotForm() {
             className="close-form-btn"
             onClick={() => {
               context.setForm(false);
+              context.setFormClosed(true);
             }}
           >
             <IoCloseOutline />

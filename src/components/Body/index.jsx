@@ -77,7 +77,9 @@ export default function ChatbotBody({
             text: res.data.data.message.replace("\n\nHumaChat:", "").trim(),
             time: time,
             className: "chatbox-fade",
+            typer: true,
           };
+          const charLen = response.text.length;
           setTimeout(() => {
             setMessages((prev) => {
               let arr = [...prev];
@@ -85,18 +87,19 @@ export default function ChatbotBody({
               arr.push(response);
               return arr;
             });
-            context.setLoading(false);
             // remove animation class
             setTimeout(() => {
               setMessages((prev) =>
                 [...prev].filter((msg) => {
                   if (msg.type === "from") {
                     msg.className = "";
+                    msg.typer = false;
                   }
                   return msg;
                 })
               );
-            }, 200);
+              context.setLoading(false);
+            }, charLen * 50 + 500);
           }, 800);
           return;
         }
@@ -121,7 +124,7 @@ export default function ChatbotBody({
         {messages.length > 0 &&
           messages.map((msg) => <ChatbotMessage message={msg} />)}
       </div>
-      {!context.form && (
+      {/* {!context.form && (
         <button
           className="open-form-btn"
           onClick={() => {
@@ -130,8 +133,8 @@ export default function ChatbotBody({
         >
           Share your Contact details
         </button>
-      )}
-      {context.form && <ChatbotForm />}
+      )} */}
+      {context.form && !context.formClosed && <ChatbotForm />}
     </div>
   );
 }
