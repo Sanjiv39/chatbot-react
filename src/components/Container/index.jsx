@@ -161,15 +161,15 @@ export default function ChatbotContainer() {
   }, [origin, parent]);
 
   useEffect(() => {
-    if (
-      loading &&
-      messages.filter((msg) => msg.type === "from" && !msg.loading).length >
-        4 &&
-      !formClosed
-    ) {
-      setForm(true);
-    } else if (loading && !formClosed) {
-      setForm(false);
+    if (!formClosed) {
+      if (
+        !loading &&
+        messages.filter((msg) => msg.type === "from" && !msg.loading).length > 4
+      ) {
+        setForm(true);
+      } else if (loading) {
+        setForm(false);
+      }
     }
   }, [messages, loading, form, formClosed]);
 
