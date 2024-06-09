@@ -64,7 +64,6 @@ export default function ChatbotContainer() {
         },
       };
       parent.postMessage(message, origin);
-      console.log("click closed by chatbot");
     }
   };
 
@@ -95,9 +94,7 @@ export default function ChatbotContainer() {
 
   useEffect(() => {
     console.log(parent, origin);
-    if (origin && parent) {
-      acknowledgeParent();
-    }
+    acknowledgeParent();
   }, [origin, parent]);
 
   return (
