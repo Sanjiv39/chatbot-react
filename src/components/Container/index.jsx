@@ -105,7 +105,6 @@ export default function ChatbotContainer() {
         },
       };
       parent.postMessage(message, origin);
-      console.log("click closed by chatbot");
     }
   };
 
