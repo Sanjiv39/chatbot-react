@@ -55,6 +55,7 @@ export default function ChatbotContainer() {
   const [origin, setOrigin] = useState("");
 
   const acknowledgeParent = () => {
+    // console.log("sending acknowledgement", origin);
     if (parent && origin) {
       const message = {
         source: "huma-chatbot-child",
@@ -78,7 +79,7 @@ export default function ChatbotContainer() {
           // console.log(e.origin);
           setParent(e.source);
           setOrigin(e.origin.trim());
-          console.log("source updated");
+          // console.log("source updated");
         }
         const msg = e.data;
         // console.log(msg);
@@ -93,7 +94,7 @@ export default function ChatbotContainer() {
   }, []);
 
   useEffect(() => {
-    // console.log(parent, origin);
+    console.log(parent, origin);
     acknowledgeParent();
   }, [origin, parent]);
 
