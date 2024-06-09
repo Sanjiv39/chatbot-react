@@ -101,7 +101,7 @@ export default function ChatbotContainer() {
         source: "huma-chatbot-child",
         data: {
           type: "acknowledgement",
-          message: "Hi from button",
+          message: "Hi from chatbot",
         },
       };
       parent.postMessage(message, origin);
@@ -155,9 +155,7 @@ export default function ChatbotContainer() {
 
   useEffect(() => {
     console.log(parent, origin);
-    if (origin && parent) {
-      acknowledgeParent();
-    }
+    acknowledgeParent();
   }, [origin, parent]);
 
   useEffect(() => {
