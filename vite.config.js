@@ -2,10 +2,31 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    {
+      name: "html-transform",
+      transformIndexHtml(html) {
+        html = html.replace(`src="/`, `src="`).replace(`href="/`, `href="`);
+        return html;
+      },
+    },
+  ],
   server: {
-    port: 3000,
+    port: 3001,
     open: true,
+  },
+  build: {
+    outDir: "chatbot/dist",
+    sourcemap: true,
+    minify: true,
+    rollupOptions: {
+      output: {
+        chunkFileNames: "assets/[name].js",
+        entryFileNames: "assets/[name].js",
+        assetFileNames: "assets/[name].[ext]",
+      },
+    },
   },
   define: {
     "process.env": {
