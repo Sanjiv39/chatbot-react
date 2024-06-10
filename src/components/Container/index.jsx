@@ -31,9 +31,9 @@ const getDataFromChannel = (msg) => {
       const obj = {
         type: msg.data.type,
         data: {
-          theme: data.theme,
-          avatar: data.avatar,
-          name: data.name,
+          theme: data.theme || "",
+          avatar: data.avatar || "",
+          name: data.name || "",
         },
       };
       for (const key in obj.data) {
@@ -108,6 +108,25 @@ export default function ChatbotContainer() {
     }
   };
 
+  const updateData = (data) => {
+    try {
+      const newData = {
+        name: data.name?.trim() || botData.name,
+        avatar:
+          data.avatar
+            ?.trim()
+            .match(
+              /^http[s]{0,1}[:]\/\/.+[.](png|svg|jpg|jpeg|webp)\/*$/
+            )?.[0] || botData.avatar,
+      };
+      console.log(newData);
+      setBotData(newData);
+      return true;
+    } catch (err) {
+      return false;
+    }
+  };
+
   useEffect(() => {
     // if (!userData) {
     // secureLocalStorage.setItem("__us_uD__", {
@@ -138,8 +157,9 @@ export default function ChatbotContainer() {
         const msg = e.data;
         // console.log(msg);
         const data = getDataFromChannel(msg);
-        // console.log(data);
+        console.log(data);
         const updated = updateColor(data);
+        updateData(data.data);
         // console.log(`Color was ${!updated ? "not" : ""} updated`);
         // console.log(Boolean(updated && data));
       } catch (err) {
