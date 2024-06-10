@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import secureLocalStorage from "react-secure-storage";
 import lightOrdarkColor from "@check-light-or-dark/color";
+import { LightenOrDarkenColor } from "../LightenOrDarken";
 import ChatbotHeader from "../Header";
 import ChatbotBody from "../Body";
 import ChatbotFooter from "../Footer";
@@ -57,11 +58,28 @@ const updateColor = (data) => {
       let botData = data.data;
       let root = document.querySelector(":root");
       if (root && botData.theme) {
+        if (
+          !botData.theme
+            .trim()
+            .toLowerCase()
+            .match(/^([#]|)[0-9a-f]{6,8}$/)
+        ) {
+          throw new Error("theme color invalid");
+        }
         const theme = lightOrdarkColor(botData.theme);
+        const secondary = LightenOrDarkenColor(
+          botData.theme,
+          theme === "light" ? -50 : 50
+        );
+        const theme2 = lightOrdarkColor(secondary);
         // console.log(theme);
         let style = `--theme-color: ${botData.theme}; --font-color: ${
           theme === "light" ? "black" : "white"
-        } ;`;
+        }; --secondary-color: ${
+          secondary || "#000000"
+        }; --secondary-font-color: ${
+          theme2 === "light" ? "black" : "white"
+        }; --err-color: ${theme === "light" ? "red" : "#ff8888"}`;
         theme && root.setAttribute("style", style.trim());
         return true;
       }

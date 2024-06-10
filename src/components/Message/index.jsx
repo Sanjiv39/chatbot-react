@@ -55,8 +55,8 @@ export default function ChatbotMessage({
                 <Typewriter
                   words={[message.text]}
                   typeSpeed={50}
-                  onDelay={() => {
-                    console.log("delayed");
+                  onType={() => {
+                    messageRef.current?.scrollIntoView();
                   }}
                 />
               ) : (

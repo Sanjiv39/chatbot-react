@@ -135,6 +135,7 @@ export default function ChatbotBody({
         </button>
       )} */}
       {context.form && !context.formClosed && <ChatbotForm />}
+      {/* { <ChatbotForm />} */}
     </div>
   );
 }

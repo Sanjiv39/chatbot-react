@@ -9,6 +9,9 @@
 :root {
   --theme-color: #13294b;
   --font-color: white;
+  --secondary-color: #13294b;
+  --secondary-font-color: white;
+  --err-color: #ff8888;
 }
 
 button {
@@ -129,8 +132,8 @@ button {
   overflow: hidden;
   border: 0;
   border-radius: 16px;
-  background: #fff;
-  box-shadow: 0px 5px 8px grey;
+  background: #ffffff;
+  /* box-shadow: 0px 5px 8px grey; */
   box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px,
     rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px,
     rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
@@ -156,7 +159,7 @@ button {
   padding: 15px 10px;
   padding-left: 20px;
   width: 100%;
-  color: white;
+  color: var(--font-color);
   background: var(--theme-color);
   box-shadow: 0px 5px 4px rgba(127, 127, 127, 0.11);
 }
@@ -207,7 +210,7 @@ button {
   font-size: 14px;
   height: 100%;
   width: 100%;
-  background: rgba(217, 217, 217, 0.3);
+  background: #d9d9d94d;
   overflow-y: auto;
   scroll-behavior: smooth;
   overflow-x: hidden;
@@ -272,7 +275,7 @@ button {
 }
 .chatbox-message.from .message {
   background: var(--theme-color);
-  color: white;
+  color: var(--font-color);
   border-bottom-left-radius: 0;
 }
 .chatbox-message.from .chatbox-time {
@@ -326,8 +329,8 @@ button {
 .open-form-btn {
   padding: 8px 16px;
   cursor: pointer;
-  color: white;
-  background-color: #13294b;
+  color: var(--secondary-font-color);
+  background-color: var(--secondary-color);
   transition: all ease 0.2s;
   position: sticky;
   bottom: 0;
@@ -346,7 +349,7 @@ button {
   opacity: 1;
 }
 .chatbox-body:hover .open-form-btn:hover {
-  background-color: #224b8a;
+  /* background-color: #224b8a; */
 }
 
 /* Text input*/
@@ -487,11 +490,15 @@ button {
   gap: 15px; */
   /* height: 100%; */
   /* overflow-y: auto; */
-  color: black;
+  color: white;
+  background-color: #13294b;
   width: 100%;
+  margin: 0 10px;
   margin-top: 10px;
   font-size: 12px;
-  /* border-radius: 24px;
+  max-width: 280px;
+  border-radius: 16px;
+  /* 
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
     rgba(0, 0, 0, 0.22) 0px 15px 12px; */
 }
@@ -505,8 +512,6 @@ button {
 
 .form-title {
   font-size: 18px;
-  color: black;
-  margin-top: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -532,14 +537,16 @@ button {
   margin-top: 2px;
   padding: 8px 16px;
   background-color: #ececec;
+  color: black;
   border-radius: 10px;
   text-align: left;
   width: 100%;
 }
 
 .chatbot-user-form .form-err {
-  font-size: 14px;
-  color: red;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #ff7272;
   text-align: left;
 }
 
@@ -548,8 +555,10 @@ button {
   margin-top: 20px;
   border-radius: 10px;
   padding: 12px 16px;
-  background-color: #13294b;
+  background-color: #138c03;
   color: white;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
   cursor: pointer;
   transition: all ease 0.2s;
 }

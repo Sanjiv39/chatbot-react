@@ -20,10 +20,10 @@ const schema = new Yup.object({
     .required("Email is required")
     .trim("Email is required")
     .email("Please enter valid email"),
-  company: Yup.string()
-    .required("Company name is required")
-    .trim("Company name is required")
-    .min(4, "Please enter min 4 characters"),
+  // company: Yup.string()
+  //   .required("Company name is required")
+  //   .trim("Company name is required")
+  //   .min(4, "Please enter min 4 characters"),
   // phone_no: Yup.string()
   //   .required("Phone number is required")
   //   .test("isvalid", "Please enter a valid phone no", (val) => {
@@ -96,7 +96,7 @@ export default function ChatbotForm() {
           />
         </div>
         <p className="form-err">{errors["email"]?.message || ""}</p>
-        <div className="input-wrapper">
+        {/* <div className="input-wrapper">
           <label className="form-label">Company : </label>
           <input
             {...register("company")}
@@ -106,8 +106,8 @@ export default function ChatbotForm() {
             name="company"
             placeholder="Humalogy"
           />
-        </div>
-        <p className="form-err">{errors["company"]?.message || ""}</p>
+        </div> */}
+        {/* <p className="form-err">{errors["company"]?.message || ""}</p> */}
         {/* <div className="input-wrapper">
           <label className="form-label">Enter phone number</label>
           <Controller
