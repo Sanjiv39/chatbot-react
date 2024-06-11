@@ -37,20 +37,14 @@ button {
 
 .chat-container button {
   z-index: 102;
-  border: none;
-  outline: none;
-  font: inherit;
-  color: inherit;
-  -webkit-tap-highlight-color: transparent;
-  /* background: transparent; */
 }
 
-.chat-container a {
+a {
   -webkit-tap-highlight-color: transparent;
   text-decoration: none;
 }
 
-.chat-container input {
+input {
   border: none;
   outline: none;
   font: inherit;
@@ -325,31 +319,33 @@ button {
   }
 }
 
-/* Open form button */
-.open-form-btn {
-  padding: 8px 16px;
-  cursor: pointer;
-  color: var(--secondary-font-color);
-  background-color: var(--secondary-color);
-  transition: all ease 0.2s;
-  position: sticky;
+/* Suggestions */
+.suggestions {
+  position: absolute;
   bottom: 0;
-  /* left: 50%; */
-  /* transform: translateX(-50%); */
-  width: calc(100% - 2 * 20px);
-  max-width: 250px;
-  margin: 10px 20px;
-  margin-bottom: 10px;
-  opacity: 0;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-    rgba(0, 0, 0, 0.22) 0px 15px 12px;
-  border-radius: 16px;
+  left: 0;
+  display: flex;
+  gap: 8px;
+  margin: 0 10px;
+  overflow-x: auto;
 }
-.chatbox-body:hover .open-form-btn {
+.suggestions::-webkit-scrollbar {
+  height: 0px;
+}
+.suggestions .suggestion {
+  padding: 10px 16px;
+  font-size: 14px;
+  color: black;
+  background-color: #d9d9d9;
+  border: 1px solid #bcbcbc;
+  border-radius: 12px;
+  cursor: pointer;
   opacity: 1;
+  transition: all ease 0.2s;
+  flex-shrink: 0;
 }
-.chatbox-body:hover .open-form-btn:hover {
-  /* background-color: #224b8a; */
+.suggestions .suggestion:disabled {
+  opacity: 0;
 }
 
 /* Text input*/
@@ -483,27 +479,56 @@ button {
 }
 
 /* Form----------------------------------------------------------------------------------------- */
-.chatbot-user-form {
-  padding: 10px;
-  /* display: flex;
-  flex-direction: column;
-  gap: 15px; */
-  /* height: 100%; */
-  /* overflow-y: auto; */
+/* Open form */
+.open-form-card {
+  margin: 0 10px;
+  margin-top: 10px;
+  margin-left: 48px;
+  padding: 12px 18px 0;
+  max-width: 220px;
+  border: 1px solid #bcbcbc;
+  border-radius: 12px;
+  color: black;
+}
+.open-form-btn {
+  padding: 8px 16px;
+  width: 100%;
+  margin-top: 10px;
   color: white;
-  background-color: #13294b;
+  background-color: #587dff;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  /* box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+  rgba(0, 0, 0, 0.22) 0px 15px 12px; */
+  cursor: pointer;
+  transition: all ease 0.2s;
+}
+.open-form-btn:hover {
+  opacity: 0.9;
+}
+
+/* form page */
+.chatbot-user-form {
+  position: relative;
+  padding: 10px;
   width: 100%;
   margin: 0 10px;
   margin-top: 10px;
+  margin-left: 48px;
   font-size: 12px;
-  max-width: 280px;
+  max-width: 220px;
+  color: black;
   border-radius: 16px;
+  border: 1px solid #bcbcbc;
   /* 
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
     rgba(0, 0, 0, 0.22) 0px 15px 12px; */
 }
 
 .close-form-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
   height: 24px;
   width: 24px;
   cursor: pointer;
@@ -520,10 +545,10 @@ button {
 
 .chatbot-user-form .input-wrapper {
   display: flex;
-  /* flex-direction: column; */
-  align-items: center;
-  gap: 8px;
-  margin-top: 15px;
+  flex-direction: column;
+  /* align-items: center; */
+  gap: 2px;
+  margin-top: 10px;
 }
 
 .chatbot-user-form .form-label {
@@ -544,26 +569,27 @@ button {
 }
 
 .chatbot-user-form .form-err {
-  margin-top: 4px;
+  /* margin-top: 4px; */
   font-size: 12px;
-  color: #ff7272;
+  color: #ff2b2b;
   text-align: left;
 }
 
 .chatbot-user-form .submit-btn {
   font-size: 14px;
-  margin-top: 20px;
-  border-radius: 10px;
+  width: 100%;
+  margin-top: 10px;
   padding: 12px 16px;
-  background-color: #138c03;
+  background-color: #587dff;
   color: white;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  border-radius: 8px;
+  /* box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px; */
   cursor: pointer;
   transition: all ease 0.2s;
 }
 .chatbot-user-form .submit-btn:hover {
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 /* React tel input */

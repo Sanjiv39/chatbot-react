@@ -11,6 +11,31 @@ export default function ChatbotBody({
   const context = useContext(App);
   const [messages, setMessages] = useState(context.messages || []);
 
+  const suggestions = [
+    {
+      text: "Contact me",
+      action: () => {
+        const msg = {
+          type: "to",
+          text: `I want to contact you`,
+          time: getTime(),
+        };
+        context.setMessage(msg);
+      },
+    },
+    {
+      text: `What is ${context.botData?.company || "Humalogy"}`,
+      action: () => {
+        const msg = {
+          type: "to",
+          text: `What is ${context.botData?.company || "Humalogy"}?`,
+          time: getTime(),
+        };
+        context.setMessage(msg);
+      },
+    },
+  ];
+
   useEffect(() => {
     if (!messages.length) {
       const time = getTime();
@@ -19,8 +44,8 @@ export default function ChatbotBody({
         {
           type: "from",
           text: `Hi this is ${
-            context.botData?.name || "Ryan"
-          }! How can I help you?`,
+            context.botData?.name || "Quill"
+          }! Please tell me how can I help you?`,
           time: time,
         },
       ]);
@@ -134,8 +159,31 @@ export default function ChatbotBody({
           Share your Contact details
         </button>
       )} */}
-      {context.form && !context.formClosed && <ChatbotForm />}
-      {/* { <ChatbotForm />} */}
+      {/* {context.form && !context.formClosed && <ChatbotForm />} */}
+      {context.form && <ChatbotForm />}
+      {!context.form && (
+        <div className="open-form-card">
+          <p>To personalise your experience, please enter your information</p>
+          <button
+            className="open-form-btn"
+            onClick={() => context.setForm(true)}
+          >
+            Enter Contact Info
+          </button>
+        </div>
+      )}
+      <div className="suggestions">
+        {suggestions.map((suggestion, i) => (
+          <button
+            key={`suggestion-${i}`}
+            disabled={context.loading}
+            className="suggestion"
+            onClick={suggestion.action}
+          >
+            {suggestion.text}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

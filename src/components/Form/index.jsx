@@ -60,20 +60,17 @@ export default function ChatbotForm() {
   return (
     <>
       <form className="chatbot-user-form" onSubmit={handleSubmit(formAction)}>
-        <h3 className="form-title">
-          Fill up the form
-          <button
-            className="close-form-btn"
-            onClick={() => {
-              context.setForm(false);
-              context.setFormClosed(true);
-            }}
-          >
-            <IoCloseOutline />
-          </button>
-        </h3>
+        <button
+          className="close-form-btn"
+          onClick={() => {
+            context.setForm(false);
+            context.setFormClosed(true);
+          }}
+        >
+          <IoCloseOutline />
+        </button>
         <div className="input-wrapper">
-          <label className="form-label">Name : </label>
+          <label className="form-label">Name</label>
           <input
             {...register("name")}
             type="text"
@@ -82,10 +79,10 @@ export default function ChatbotForm() {
             name="name"
             placeholder="Shane"
           />
+          <p className="form-err">{errors["name"]?.message || ""}</p>
         </div>
-        <p className="form-err">{errors["name"]?.message || ""}</p>
         <div className="input-wrapper">
-          <label className="form-label">Email : </label>
+          <label className="form-label">Email</label>
           <input
             {...register("email")}
             type="email"
@@ -94,8 +91,8 @@ export default function ChatbotForm() {
             name="email"
             placeholder="user@gmail.com"
           />
+          <p className="form-err">{errors["email"]?.message || ""}</p>
         </div>
-        <p className="form-err">{errors["email"]?.message || ""}</p>
         {/* <div className="input-wrapper">
           <label className="form-label">Company : </label>
           <input

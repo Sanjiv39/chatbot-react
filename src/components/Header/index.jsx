@@ -16,7 +16,7 @@ export default function ChatbotHeader({ onClose = () => {} }) {
         />
       </div>
       <div className="chatbox-header-text">
-        <h2>{`Hi this is ${context.botData.name || "Huma"}!`}</h2>
+        <h2>{context.botData.name || "Quill"}</h2>
         <p>How can I help you?</p>
       </div>
       <button
