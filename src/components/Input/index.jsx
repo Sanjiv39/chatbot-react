@@ -12,38 +12,12 @@ export default function ChatbotInput() {
     {
       text: "Contact me",
       action: () => {
-        const msg = {
-          type: "to",
-          text: `I want to contact you`,
-          time: getTime(),
-        };
-        context.setMessage(msg);
+        context.setFormClosed(false);
+        context.setForm(true);
       },
     },
     {
-      text: `What is ${context.botData?.company || "Humalogy"}`,
-      action: () => {
-        const msg = {
-          type: "to",
-          text: `What is ${context.botData?.company || "Humalogy"}?`,
-          time: getTime(),
-        };
-        context.setMessage(msg);
-      },
-    },
-    {
-      text: "Contact me",
-      action: () => {
-        const msg = {
-          type: "to",
-          text: `I want to contact you`,
-          time: getTime(),
-        };
-        context.setMessage(msg);
-      },
-    },
-    {
-      text: `What is ${context.botData?.company || "Humalogy"}`,
+      text: `About Me`,
       action: () => {
         const msg = {
           type: "to",

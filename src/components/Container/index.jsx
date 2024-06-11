@@ -1,4 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
+import { v6 as uuidv7 } from "uuid";
 import secureLocalStorage from "react-secure-storage";
 import lightOrdarkColor from "@check-light-or-dark/color";
 import { LightenOrDarkenColor } from "../LightenOrDarken";
@@ -94,6 +95,7 @@ export default function ChatbotContainer() {
   const [userData, setUserData] = useState(
     secureLocalStorage.getItem("__us_uD__")
   );
+  const [uuid, setuuid] = useState(secureLocalStorage.getItem("__uID__"));
   const [botData, setBotData] = useState({
     name: "Quill",
     avatar:
@@ -154,11 +156,12 @@ export default function ChatbotContainer() {
     //   "phone-no": "+916678989789",
     // });
     // }
-    window.addEventListener("storage", () => {
-      const data = secureLocalStorage.getItem("__us_uD__");
-      console.log(data);
-      setUserData(data);
-    });
+    if (!uuid) {
+      const uuid = uuidv7();
+      console.log(uuid);
+      secureLocalStorage.setItem("__uID__", uuid);
+      setuuid(uuid);
+    }
 
     // Update colors and bot data
     window.addEventListener("message", (e) => {
@@ -200,17 +203,20 @@ export default function ChatbotContainer() {
   useEffect(() => {
     if (
       !formClosed &&
+      form === undefined &&
       messages.filter((msg) => msg.type === "from" && !msg.loading).length > 4
     ) {
       setForm(false);
     }
-  }, [messages, formClosed]);
+  }, [messages]);
 
   return (
     <App.Provider
       value={{
         userData,
         setUserData,
+        uuid,
+        setuuid,
         setActive,
         botData,
         assetsBaseUrl,

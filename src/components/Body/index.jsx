@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import ChatbotMessage from "../Message";
 import { App } from "../Container";
 import { getTime } from "../Container";
-import { getResponse } from "../apis/apis";
+import { getResponse, ingestChatHistory } from "../apis/apis";
 import ChatbotForm from "../Form";
 
 export default function ChatbotBody({
@@ -70,6 +70,7 @@ export default function ChatbotBody({
           user_question: message.text.trim().replace(/ +/g, " "),
         };
         const res = await getResponse(payload);
+        const historyRes = await ingestChatHistory();
         if (
           res.data &&
           res.data.success &&
@@ -84,6 +85,21 @@ export default function ChatbotBody({
             className: "chatbox-fade",
             typer: true,
           };
+          const history = [
+            {
+              role: "user",
+              content: payload.user_question,
+              response: {
+                role: "assistant",
+                content: response.text,
+              },
+            },
+          ];
+          res = await ingestChatHistory(history, context.uuid);
+          console.log(res);
+          if (!(res.data && res.data.success)) {
+            throw new Error("ingest response error");
+          }
           const charLen = response.text.length;
           setTimeout(() => {
             setMessages((prev) => {
@@ -114,7 +130,7 @@ export default function ChatbotBody({
         setTimeout(() => {
           setMessages((prev) => {
             let arr = [...prev];
-            arr.filter((el) => !el.loading);
+            arr = arr.filter((el) => !el.loading);
             return arr;
           });
           context.setLoading(false);
@@ -127,7 +143,11 @@ export default function ChatbotBody({
     <div className="chatbox-body">
       <div
         className="chatbox-body-inner"
-        style={context.form === undefined || context.formClosed ? { marginBottom: 45 } : {}}
+        style={
+          context.form === undefined || context.formClosed
+            ? { marginBottom: 45 }
+            : {}
+        }
       >
         {messages.length > 0 &&
           messages.map((msg) => <ChatbotMessage message={msg} />)}

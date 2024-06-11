@@ -12,6 +12,7 @@
   --secondary-color: #13294b;
   --secondary-font-color: white;
   --err-color: #ff8888;
+  --image-bg-color: #d9d9d9;
 }
 
 button {
@@ -150,12 +151,16 @@ input {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  padding: 15px 10px;
-  padding-left: 20px;
+  padding: 10px;
+  padding-left: 15px;
   width: 100%;
   color: var(--font-color);
   background: var(--theme-color);
-  box-shadow: 0px 5px 4px rgba(127, 127, 127, 0.11);
+  color: black;
+  background: white;
+  /* box-shadow: 0px 5px 4px rgba(127, 127, 127, 0.11); */
+  box-shadow: 0px 5px 30px #7272721c;
+  border-bottom: 1px solid #d7d7d7;
 }
 .chatbox-logo {
   clip-path: circle();
@@ -167,9 +172,10 @@ input {
 
 .chatbox-header .chatbox-logo {
   flex-shrink: 0;
-  background: white;
-  width: 40px;
-  height: 40px;
+  background: var(--image-bg-color);
+  width: 35px;
+  height: 35px;
+  align-self: center;
 }
 
 .chatbox-header-text {
@@ -204,13 +210,14 @@ input {
   font-size: 14px;
   height: 100%;
   width: 100%;
-  background: #d9d9d94d;
+  /* background: #d9d9d94d; */
+  /* background: white; */
   overflow-y: auto;
   scroll-behavior: smooth;
   overflow-x: hidden;
   padding: 10px 0;
-  border-top: 1px solid #d7d7d7;
-  border-bottom: 1px solid #d7d7d7;
+  /* border-top: 1px solid #d7d7d7; */
+  /* border-bottom: 1px solid #d7d7d7; */
 }
 
 ::-webkit-scrollbar {
@@ -265,7 +272,7 @@ input {
 .chatbox-message.from .chatbox-logo {
   width: 25px;
   height: 25px;
-  background: #e2e2e2;
+  background: var(--image-bg-color);
 }
 .chatbox-message.from .message {
   background: var(--theme-color);
@@ -300,19 +307,20 @@ input {
   align-self: flex-end;
 }
 .chatbox-message.to .message {
-  background: #539fef;
-  color: white;
+  /* background: #539fef; */
+  color: black;
+  border: 1px solid #d6d6d6;
   border-bottom-right-radius: 0;
 }
 .chatbox-message.to .chatbox-time {
   text-align: right;
 }
 .chatbox-slide {
-  animation: chatbox-slide-right ease-in 200ms;
+  animation: chatbox-slide-right ease-in 100ms;
 }
 @keyframes chatbox-slide-right {
   from {
-    transform: translate(-30px, 40px);
+    transform: translate(-10px, 10px);
   }
   to {
     transform: translate(0px, 0px);
@@ -325,10 +333,11 @@ input {
   bottom: 100%;
   left: 0;
   right: 0;
-  transform: translateY(-8px);
+  transform: translateY(-5px);
   display: flex;
+  justify-content: center;
   gap: 4px;
-  margin: 0 10px;
+  /* margin: 0 10px; */
   overflow-x: auto;
 }
 .suggestions::-webkit-scrollbar {
@@ -338,7 +347,8 @@ input {
   padding: 8px 14px;
   font-size: 14px;
   color: black;
-  background-color: #d9d9d9;
+  background-color: white;
+  box-shadow: 0px 5px 4px rgba(127, 127, 127, 0.11);
   border: 1px solid #bcbcbc;
   border-radius: 12px;
   cursor: pointer;
@@ -358,36 +368,31 @@ input {
 .chatbox-input-container {
   position: relative;
   font-size: 14px;
-  width: calc(100%);
+  width: calc(100% - 20px);
   padding: 0 10px;
-  border-radius: 5px;
+  /* margin: 0 10px; */
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 2px;
-  background: white;
-  box-shadow: 0px -5px 4px rgba(127, 127, 127, 0.11);
+  background: #f4f4f4;
+  border-radius: 8px;
+  border: 1px solid #eaeaea;
+  /* box-shadow: 0px -5px 4px rgba(127, 127, 127, 0.11); */
 }
 
 .chatbox-input-container input {
   width: 100%;
   font: inherit;
   text-align: left;
-  padding: 10px;
-  padding-right: 5px;
+  padding: 8px 5px 8px 0;
   background: transparent;
   color: black;
 }
 
 .chatbox-send-btn {
-  height: 30px;
-  width: 30px;
-  background: transparent;
-  cursor: pointer;
-}
-.chatbox-send-btn {
-  height: 30px;
-  width: 30px;
+  height: 25px;
+  width: 25px;
   background: transparent;
   cursor: pointer;
 }
@@ -527,7 +532,7 @@ input {
   font-size: 12px;
   max-width: 220px;
   color: black;
-  border-radius: 16px;
+  border-radius: 12px;
   border: 1px solid #bcbcbc;
   /* 
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
@@ -570,7 +575,7 @@ input {
 .chatbot-user-form .form-input {
   margin-top: 2px;
   padding: 8px 16px;
-  background-color: #ececec;
+  background-color: #f1f1f1;
   color: black;
   border-radius: 10px;
   text-align: left;
