@@ -70,7 +70,6 @@ export default function ChatbotBody({
           user_question: message.text.trim().replace(/ +/g, " "),
         };
         const res = await getResponse(payload);
-        const historyRes = await ingestChatHistory();
         if (
           res.data &&
           res.data.success &&
@@ -95,11 +94,11 @@ export default function ChatbotBody({
               },
             },
           ];
-          res = await ingestChatHistory(history, context.uuid);
-          console.log(res);
-          if (!(res.data && res.data.success)) {
-            throw new Error("ingest response error");
-          }
+          // res = await ingestChatHistory(history, context.uuid);
+          // console.log(res);
+          // if (!(res.data && res.data.success)) {
+          //   throw new Error("ingest response error");
+          // }
           const charLen = response.text.length;
           setTimeout(() => {
             setMessages((prev) => {

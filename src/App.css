@@ -154,10 +154,10 @@ input {
   padding: 10px;
   padding-left: 15px;
   width: 100%;
-  color: var(--font-color);
-  background: var(--theme-color);
-  /* color: black; */
-  /* background: white; */
+  /* color: var(--font-color);
+  background: var(--theme-color); */
+  color: black;
+  background: white;
   /* box-shadow: 0px 5px 4px #7f7f7f1d; */
   box-shadow: 0px 5px 30px #7272724e;
   border-bottom: 1px solid #d7d7d7;
@@ -494,9 +494,10 @@ input {
 /* Open form */
 .open-form-card {
   margin: 0 10px;
-  margin: 10px 10px 45px 48px;
+  margin: 10px auto 48px;
   padding: 12px 18px 0;
-  max-width: 220px;
+  width: calc(100% - 20px);
+  /* max-width: 220px; */
   color: black;
   font-size: 12px;
   border: 1px solid #bcbcbc;
@@ -527,10 +528,10 @@ input {
 .chatbot-user-form {
   position: relative;
   padding: 10px 18px;
-  width: 100%;
-  margin: 10px 10px 45px 48px;
+  width: calc(100% - 20px);
+  margin: 10px auto 45px;
   font-size: 12px;
-  max-width: 220px;
+  /* max-width: 220px; */
   color: black;
   border-radius: 12px;
   border: 1px solid #bcbcbc;
