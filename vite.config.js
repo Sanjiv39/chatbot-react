@@ -17,7 +17,7 @@ export default defineConfig({
     open: true,
   },
   build: {
-    outDir: "button/dist",
+    // outDir: "button/dist",
     sourcemap: true,
     minify: true,
     rollupOptions: {
