@@ -98,12 +98,13 @@ export default function ChatbotContainer() {
     name: "Quill",
     avatar:
       "https://humachat.s3.amazonaws.com/huma-chat-assets/avatars/avatar-3.png",
+    company: "Excello",
   });
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState(null);
   const [active, setActive] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState(false);
+  const [form, setForm] = useState(undefined);
   const [formClosed, setFormClosed] = useState(false);
 
   const [parent, setParent] = useState(null);
@@ -136,6 +137,7 @@ export default function ChatbotContainer() {
             .match(
               /^http[s]{0,1}[:]\/\/.+[.](png|svg|jpg|jpeg|webp)\/*$/
             )?.[0] || botData.avatar,
+        company: data.company?.trim() || botData.company,
       };
       console.log(newData);
       setBotData(newData);
@@ -196,17 +198,13 @@ export default function ChatbotContainer() {
   }, [origin, parent]);
 
   useEffect(() => {
-    if (!formClosed) {
-      if (
-        !loading &&
-        messages.filter((msg) => msg.type === "from" && !msg.loading).length > 4
-      ) {
-        setForm(true);
-      } else if (loading) {
-        setForm(false);
-      }
+    if (
+      !formClosed &&
+      messages.filter((msg) => msg.type === "from" && !msg.loading).length > 4
+    ) {
+      setForm(false);
     }
-  }, [messages, loading, form, formClosed]);
+  }, [messages, formClosed]);
 
   return (
     <App.Provider

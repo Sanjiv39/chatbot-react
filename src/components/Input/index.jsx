@@ -8,6 +8,53 @@ export default function ChatbotInput() {
   const sendButton = useRef();
   const [message, setMessage] = useState("");
 
+  const suggestions = [
+    {
+      text: "Contact me",
+      action: () => {
+        const msg = {
+          type: "to",
+          text: `I want to contact you`,
+          time: getTime(),
+        };
+        context.setMessage(msg);
+      },
+    },
+    {
+      text: `What is ${context.botData?.company || "Humalogy"}`,
+      action: () => {
+        const msg = {
+          type: "to",
+          text: `What is ${context.botData?.company || "Humalogy"}?`,
+          time: getTime(),
+        };
+        context.setMessage(msg);
+      },
+    },
+    {
+      text: "Contact me",
+      action: () => {
+        const msg = {
+          type: "to",
+          text: `I want to contact you`,
+          time: getTime(),
+        };
+        context.setMessage(msg);
+      },
+    },
+    {
+      text: `What is ${context.botData?.company || "Humalogy"}`,
+      action: () => {
+        const msg = {
+          type: "to",
+          text: `What is ${context.botData?.company || "Humalogy"}?`,
+          time: getTime(),
+        };
+        context.setMessage(msg);
+      },
+    },
+  ];
+
   const handleSendMessage = () => {
     if (message.trim()) {
       const time = getTime();
@@ -19,6 +66,21 @@ export default function ChatbotInput() {
 
   return (
     <div className="chatbox-input-container">
+      <div
+        className="suggestions"
+        style={context.loading ? { display: "none" } : {}}
+      >
+        {suggestions.map((suggestion, i) => (
+          <button
+            key={`suggestion-${i}`}
+            disabled={context.loading}
+            className="suggestion"
+            onClick={suggestion.action}
+          >
+            {suggestion.text}
+          </button>
+        ))}
+      </div>
       <input
         inputmode="text"
         type="text"

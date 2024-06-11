@@ -322,10 +322,12 @@ input {
 /* Suggestions */
 .suggestions {
   position: absolute;
-  bottom: 0;
+  bottom: 100%;
   left: 0;
+  right: 0;
+  transform: translateY(-8px);
   display: flex;
-  gap: 8px;
+  gap: 4px;
   margin: 0 10px;
   overflow-x: auto;
 }
@@ -333,7 +335,7 @@ input {
   height: 0px;
 }
 .suggestions .suggestion {
-  padding: 10px 16px;
+  padding: 8px 14px;
   font-size: 14px;
   color: black;
   background-color: #d9d9d9;
@@ -346,10 +348,15 @@ input {
 }
 .suggestions .suggestion:disabled {
   opacity: 0;
+  cursor: default;
+}
+.suggestions .suggestion:hover {
+  background-color: #e8e8e8;
 }
 
 /* Text input*/
 .chatbox-input-container {
+  position: relative;
   font-size: 14px;
   width: calc(100%);
   padding: 0 10px;
@@ -482,22 +489,26 @@ input {
 /* Open form */
 .open-form-card {
   margin: 0 10px;
-  margin-top: 10px;
-  margin-left: 48px;
+  margin: 10px 10px 45px 48px;
   padding: 12px 18px 0;
   max-width: 220px;
+  color: black;
+  font-size: 12px;
   border: 1px solid #bcbcbc;
   border-radius: 12px;
-  color: black;
+}
+.open-form-card p {
+  text-align: left;
 }
 .open-form-btn {
   padding: 8px 16px;
   width: 100%;
   margin-top: 10px;
+  margin-bottom: 10px;
   color: white;
+  font-size: 14px;
   background-color: #587dff;
   border-radius: 8px;
-  margin-bottom: 10px;
   /* box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
   rgba(0, 0, 0, 0.22) 0px 15px 12px; */
   cursor: pointer;
@@ -510,11 +521,9 @@ input {
 /* form page */
 .chatbot-user-form {
   position: relative;
-  padding: 10px;
+  padding: 10px 18px;
   width: 100%;
-  margin: 0 10px;
-  margin-top: 10px;
-  margin-left: 48px;
+  margin: 10px 10px 45px 48px;
   font-size: 12px;
   max-width: 220px;
   color: black;

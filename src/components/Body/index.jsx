@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import ChatbotMessage from "../Message";
 import { App } from "../Container";
 import { getTime } from "../Container";
@@ -9,32 +9,8 @@ export default function ChatbotBody({
   message = { type: "to", text: "", time, className: "" },
 }) {
   const context = useContext(App);
+  const lastElRef = useRef();
   const [messages, setMessages] = useState(context.messages || []);
-
-  const suggestions = [
-    {
-      text: "Contact me",
-      action: () => {
-        const msg = {
-          type: "to",
-          text: `I want to contact you`,
-          time: getTime(),
-        };
-        context.setMessage(msg);
-      },
-    },
-    {
-      text: `What is ${context.botData?.company || "Humalogy"}`,
-      action: () => {
-        const msg = {
-          type: "to",
-          text: `What is ${context.botData?.company || "Humalogy"}?`,
-          time: getTime(),
-        };
-        context.setMessage(msg);
-      },
-    },
-  ];
 
   useEffect(() => {
     if (!messages.length) {
@@ -79,6 +55,10 @@ export default function ChatbotBody({
     }
     context.setMessage(null);
   }, [message]);
+
+  useEffect(() => {
+    lastElRef.current && lastElRef.current?.scrollIntoView();
+  }, [lastElRef]);
 
   const sendMessagetoApi = async () => {
     if (message.type === "to" && message.text?.trim()) {
@@ -145,7 +125,10 @@ export default function ChatbotBody({
 
   return (
     <div className="chatbox-body">
-      <div className="chatbox-body-inner">
+      <div
+        className="chatbox-body-inner"
+        style={context.form === undefined || context.formClosed ? { marginBottom: 45 } : {}}
+      >
         {messages.length > 0 &&
           messages.map((msg) => <ChatbotMessage message={msg} />)}
       </div>
@@ -159,12 +142,14 @@ export default function ChatbotBody({
           Share your Contact details
         </button>
       )} */}
-      {/* {context.form && !context.formClosed && <ChatbotForm />} */}
-      {context.form && <ChatbotForm />}
-      {!context.form && (
+      {context.form === true && !context.loading && !context.formClosed && (
+        <ChatbotForm />
+      )}
+      {context.form === false && !context.loading && !context.formClosed && (
         <div className="open-form-card">
           <p>To personalise your experience, please enter your information</p>
           <button
+            ref={lastElRef}
             className="open-form-btn"
             onClick={() => context.setForm(true)}
           >
@@ -172,18 +157,6 @@ export default function ChatbotBody({
           </button>
         </div>
       )}
-      <div className="suggestions">
-        {suggestions.map((suggestion, i) => (
-          <button
-            key={`suggestion-${i}`}
-            disabled={context.loading}
-            className="suggestion"
-            onClick={suggestion.action}
-          >
-            {suggestion.text}
-          </button>
-        ))}
-      </div>
     </div>
   );
 }
