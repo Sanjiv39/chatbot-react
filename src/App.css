@@ -25,14 +25,15 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
+  align-self: flex-end;
   border-radius: 50%;
   height: 50px;
   width: 50px;
   padding: 8px;
+  color: var(--font-color);
   background: var(--theme-color);
   cursor: pointer;
-  align-self: flex-end;
-  color: var(--font-color);
+  transition: all ease 0.2s;
 }
 .open-chat-btn svg {
   width: 100%;
