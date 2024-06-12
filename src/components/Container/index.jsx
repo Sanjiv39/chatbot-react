@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import lightOrdarkColor from "@check-light-or-dark/color";
 import { RiChat1Line } from "react-icons/ri";
+import { ColorData } from "../Color/Color";
 
 const getDataFromChannel = (msg) => {
   try {
@@ -36,11 +37,20 @@ const updateColor = (data) => {
       let root = document.querySelector(":root");
       if (root && botData.theme) {
         const theme = lightOrdarkColor(botData.theme);
+        const colorData = ColorData(botData.theme);
+        if (!colorData) {
+          throw new Error("color error");
+        }
+        let style = `--theme-color: ${colorData.color}; --font-color: ${
+          colorData.isLight ? "black" : "white"
+        }; --secondary-color: ${
+          colorData.isLight ? colorData.darker : colorData.lighter
+        };`;
         // console.log(theme);
-        let style = `--theme-color: ${botData.theme}; --font-color: ${
-          theme === "light" ? "black" : "white"
-        } ;`;
-        theme && root.setAttribute("style", style.trim());
+        // let style = `--theme-color: ${botData.theme}; --font-color: ${
+        //   theme === "light" ? "black" : "white"
+        // } ;`;
+        root.setAttribute("style", style.trim());
         return true;
       }
       return false;

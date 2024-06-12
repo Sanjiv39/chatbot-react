@@ -2,6 +2,7 @@
 
 :root {
   --theme-color: #13294b;
+  --secondary-color: #265296;
   --font-color: white;
 }
 
@@ -39,7 +40,7 @@ button {
 }
 
 .open-chat-btn:hover {
-  opacity: 0.9;
+  background: var(--secondary-color);
 }
 
 .open-chat-btn img {
