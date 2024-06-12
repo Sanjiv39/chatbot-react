@@ -12,8 +12,8 @@ export const ColorData = (input = "") => {
     const obj = {
       isDark: color.isDark(),
       isLight: color.isLight(),
-      darker: color.darken(1).hex(),
-      lighter: color.lighten(1).hex(),
+      darker: color.darken(0.2).hex(),
+      lighter: color.lighten(0.2).hex(),
       color: input,
     };
     if (obj.isDark === obj.isLight) {
