@@ -10,9 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@check-light-or-dark/color": "^1.0.3",
     "@hookform/resolvers": "^3.6.0",
     "axios": "^1.7.2",
+    "color": "^4.2.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.5",

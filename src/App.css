@@ -9,9 +9,8 @@
 :root {
   --theme-color: #13294b;
   --font-color: white;
-  --secondary-color: #13294b;
+  --secondary-color: #252589;
   --secondary-font-color: white;
-  --err-color: #ff8888;
   --image-bg-color: #d9d9d9;
 }
 
@@ -278,6 +277,7 @@ input {
   background: var(--theme-color);
   color: var(--font-color);
   border-bottom-left-radius: 0;
+  border: 1px solid var(--secondary-color);
 }
 .chatbox-message.from .chatbox-time {
   text-align: left;
