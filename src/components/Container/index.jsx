@@ -67,7 +67,9 @@ const updateColor = (data) => {
           colorData.isLight ? "black" : "white"
         }; --secondary-color: ${
           colorData.isLight ? colorData.darker : colorData.lighter
-        }; --secondary-font-color: ${colorData.isLight ? "white" : "black"};`;
+        }; --secondary-font-color: ${
+          colorData.isLight ? "white" : "black"
+        }; --alpha-color: ${colorData.alpha};`;
         root.setAttribute("style", style.trim());
         return true;
       }

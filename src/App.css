@@ -9,7 +9,8 @@
 :root {
   --theme-color: #13294b;
   --font-color: white;
-  --secondary-color: #252589;
+  --secondary-color: #1c3d71;
+  --alpha-color: #13294bcc;
   --secondary-font-color: white;
   --image-bg-color: #d9d9d9;
 }
@@ -274,10 +275,10 @@ input {
   background: var(--image-bg-color);
 }
 .chatbox-message.from .message {
-  background: var(--theme-color);
+  background: var(--alpha-color);
   color: var(--font-color);
   border-bottom-left-radius: 0;
-  border: 1px solid var(--secondary-color);
+  border: 1.5px solid var(--theme-color);
 }
 .chatbox-message.from .chatbox-time {
   text-align: left;
