@@ -58,6 +58,9 @@ export default function ChatbotMessage({
                   onType={() => {
                     messageRef.current?.scrollIntoView();
                   }}
+                  onLoopDone={() => {
+                    messageRef.current?.scrollIntoView();
+                  }}
                 />
               ) : (
                 message.text
