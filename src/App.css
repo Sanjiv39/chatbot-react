@@ -408,7 +408,7 @@ input {
 /* Footer */
 .chatbox-footer {
   margin: 10px 0;
-  width: 100%;
+  /* width: 100%; */
   text-align: center;
   color: #4d4d4d;
   font-size: 12px;
