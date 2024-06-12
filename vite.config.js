@@ -33,8 +33,6 @@ export default defineConfig({
       VITE_SECURE_LOCAL_STORAGE_HASH_KEY:
         "f0922b5a9147ba3c9ed741de30934b1f1889127fae73a180aa1a44==",
       VITE_SECURE_LOCAL_STORAGE_PREFIX: "hm_cb@crypt",
-      VITE_HUMA_JWT:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo0MSwiZW1haWwiOiJiaGFyYWR3YWpzd2FybmE5NEBnbWFpbC5jb20ifQ.n0S42kiplk6K6aFxtoLlf25VVqICWmViSImaBHd2v9A",
     },
   },
 });

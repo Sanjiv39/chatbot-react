@@ -15,11 +15,15 @@ const ASKQUERY = axios.create({
   },
 });
 
+const humaJwt = import.meta.env.VITE_HUMA_JWT;
+const humaUuid = import.meta.env.VITE_HUMA_UUID;
+// console.log(humaJwt);
 const CAMPAIGN = axios.create({
   baseURL: baseUrl + "/campaign",
   method: "post",
   headers: {
     "Content-Type": contentTypes.json,
+    Authorization: humaUuid,
   },
 });
 
@@ -37,8 +41,6 @@ export const getResponse = async (
   }
 };
 
-const humaJwt = import.meta.env.VITE_HUMA_JWT;
-// console.log(humaJwt);
 export const ingestChatHistory = async (
   history = [],
   uuid = "",
@@ -50,9 +52,6 @@ export const ingestChatHistory = async (
     }
     let res = CAMPAIGN.request({
       url: "/ingest-chat-history/",
-      headers: {
-        Authorization: humaJwt,
-      },
       data: {
         chat_source: website_url,
         chat_id: uuid,
