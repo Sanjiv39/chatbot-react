@@ -56,6 +56,7 @@ export const ingestChatHistory = async (
         chat_source: website_url,
         chat_id: uuid,
         chat_history: history,
+        is_huma_chat_campaign: true
       },
     });
     return res;
