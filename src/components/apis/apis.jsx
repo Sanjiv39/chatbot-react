@@ -53,7 +53,7 @@ export const ingestChatHistory = async (
     let res = CAMPAIGN.request({
       url: "/ingest-chat-history/",
       data: {
-        chat_source: website_url,
+        chat_link: website_url,
         chat_id: uuid,
         chat_history: history,
         is_huma_chat_campaign: true
