@@ -608,6 +608,12 @@ input {
   opacity: 0.9;
 }
 
+.form-loader {
+  height: 80px;
+  width: 80px;
+  margin: auto auto;
+}
+
 /* React tel input */
 .react-tel-input .form-control {
   width: 100%;

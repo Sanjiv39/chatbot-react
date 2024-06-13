@@ -82,7 +82,7 @@ const updateColor = (data) => {
 
 export default function ChatbotContainer() {
   const [userData, setUserData] = useState(
-    secureLocalStorage.getItem("__us_uD__")
+    secureLocalStorage.getItem("__uD__")
   );
   const [uuid, setuuid] = useState(secureLocalStorage.getItem("__uID__"));
   const [botData, setBotData] = useState({
@@ -90,6 +90,7 @@ export default function ChatbotContainer() {
     avatar:
       "https://humachat.s3.amazonaws.com/huma-chat-assets/avatars/avatar-3.png",
     company: "Excello",
+    websiteUrl: "https://excellobpo.com/",
   });
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState(null);
@@ -140,7 +141,7 @@ export default function ChatbotContainer() {
 
   useEffect(() => {
     // if (!userData) {
-    // secureLocalStorage.setItem("__us_uD__", {
+    // secureLocalStorage.setItem("__uD__", {
     //   email: "user@gmail.com",
     //   "phone-no": "+916678989789",
     // });
@@ -181,7 +182,7 @@ export default function ChatbotContainer() {
   }, []);
 
   useEffect(() => {
-    // console.log(userData);
+    userData && setFormClosed(true);
   }, [userData]);
 
   useEffect(() => {

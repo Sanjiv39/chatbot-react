@@ -1,12 +1,15 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
-import { isValidPhoneNumber } from "react-phone-number-input";
+// import { isValidPhoneNumber } from "react-phone-number-input";
 import { IoCloseOutline } from "react-icons/io5";
-import PhoneInput from "react-phone-input-2";
+// import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import { ingestChatHistory } from "../apis/apis";
+import { TailSpin } from "react-loader-spinner";
 import { App } from "../Container";
+import secureLocalStorage from "react-secure-storage";
 
 const schema = new Yup.object({
   name: Yup.string()
@@ -36,6 +39,7 @@ const schema = new Yup.object({
 export default function ChatbotForm() {
   const context = useContext(App);
   const lastRef = useRef();
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -49,8 +53,43 @@ export default function ChatbotForm() {
     resolver: yupResolver(schema),
   });
 
-  const formAction = (data) => {
-    console.log(data);
+  const formAction = async (data) => {
+    try {
+      setLoading(true);
+      console.log(data);
+      const payload = {
+        name: data.name?.trim() || null,
+        email: data.email?.trim() || null,
+      };
+      if (
+        payload.name &&
+        payload.email &&
+        context.uuid &&
+        context.botData.websiteUrl
+      ) {
+        let res = await ingestChatHistory(
+          [],
+          context.uuid,
+          context.botData.websiteUrl,
+          payload
+        );
+        if (res.data && res.data.success) {
+          setTimeout(() => {
+            setLoading(false);
+          }, 1000);
+          context.setUserData(payload);
+          secureLocalStorage.setItem("__uD__", payload);
+          return;
+        }
+        throw new Error("Error in ingest response");
+      }
+      throw new Error("Error sending form");
+    } catch (err) {
+      console.log(err);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    }
   };
 
   useEffect(() => {
@@ -60,40 +99,42 @@ export default function ChatbotForm() {
   return (
     <>
       <form className="chatbot-user-form" onSubmit={handleSubmit(formAction)}>
-        <button
-          className="close-form-btn"
-          onClick={() => {
-            context.setForm(false);
-            context.setFormClosed(true);
-          }}
-        >
-          <IoCloseOutline />
-        </button>
-        <div className="input-wrapper">
-          <label className="form-label">Name</label>
-          <input
-            {...register("name")}
-            type="text"
-            className="form-input"
-            required
-            name="name"
-            placeholder="Shane"
-          />
-          <p className="form-err">{errors["name"]?.message || ""}</p>
-        </div>
-        <div className="input-wrapper">
-          <label className="form-label">Email</label>
-          <input
-            {...register("email")}
-            type="email"
-            className="form-input"
-            required
-            name="email"
-            placeholder="user@gmail.com"
-          />
-          <p className="form-err">{errors["email"]?.message || ""}</p>
-        </div>
-        {/* <div className="input-wrapper">
+        {!loading && (
+          <>
+            <button
+              className="close-form-btn"
+              onClick={() => {
+                context.setForm(false);
+                context.setFormClosed(true);
+              }}
+            >
+              <IoCloseOutline />
+            </button>
+            <div className="input-wrapper">
+              <label className="form-label">Name</label>
+              <input
+                {...register("name")}
+                type="text"
+                className="form-input"
+                required
+                name="name"
+                placeholder="Shane"
+              />
+              <p className="form-err">{errors["name"]?.message || ""}</p>
+            </div>
+            <div className="input-wrapper">
+              <label className="form-label">Email</label>
+              <input
+                {...register("email")}
+                type="email"
+                className="form-input"
+                required
+                name="email"
+                placeholder="user@gmail.com"
+              />
+              <p className="form-err">{errors["email"]?.message || ""}</p>
+            </div>
+            {/* <div className="input-wrapper">
           <label className="form-label">Company : </label>
           <input
             {...register("company")}
@@ -104,8 +145,8 @@ export default function ChatbotForm() {
             placeholder="Humalogy"
           />
         </div> */}
-        {/* <p className="form-err">{errors["company"]?.message || ""}</p> */}
-        {/* <div className="input-wrapper">
+            {/* <p className="form-err">{errors["company"]?.message || ""}</p> */}
+            {/* <div className="input-wrapper">
           <label className="form-label">Enter phone number</label>
           <Controller
             control={control}
@@ -133,12 +174,22 @@ export default function ChatbotForm() {
           />
           <p className="form-err">{errors["phone_no"]?.message || ""}</p>
         </div> */}
-        <input
-          ref={lastRef}
-          type="submit"
-          value="Submit"
-          className="submit-btn"
-        />
+            <input
+              ref={lastRef}
+              type="submit"
+              value="Submit"
+              className="submit-btn"
+            />
+          </>
+        )}
+        {loading && (
+          <TailSpin
+            color="#587dff"
+            height={"80px"}
+            width={"80px"}
+            wrapperClass="form-loader"
+          />
+        )}
       </form>
     </>
   );

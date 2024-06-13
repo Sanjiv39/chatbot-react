@@ -15,6 +15,7 @@ export default function ChatbotInput() {
         context.setFormClosed(false);
         context.setForm(true);
       },
+      disabled: context.userData,
     },
     {
       text: `About Me`,
@@ -49,6 +50,7 @@ export default function ChatbotInput() {
             key={`suggestion-${i}`}
             disabled={context.loading}
             className="suggestion"
+            style={suggestion.disabled ? { display: "none" } : {}}
             onClick={suggestion.action}
           >
             {suggestion.text}

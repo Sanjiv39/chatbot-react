@@ -44,19 +44,21 @@ export const getResponse = async (
 export const ingestChatHistory = async (
   history = [],
   uuid = "",
-  website_url = "https://excellobpo.com/"
+  website_url = "https://excellobpo.com/",
+  email_body = null
 ) => {
   try {
     if (!uuid.trim()) {
       throw new Error("uuid was not passed");
     }
-    let res = CAMPAIGN.request({
+    let res = await CAMPAIGN.request({
       url: "/ingest-chat-history/",
       data: {
         chat_link: website_url,
         chat_id: uuid,
         chat_history: history,
-        is_huma_chat_campaign: true
+        is_huma_chat_campaign: true,
+        email_body : email_body
       },
     });
     return res;
