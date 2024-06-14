@@ -132,7 +132,7 @@ export default function ChatbotContainer() {
         company: data.company?.trim() || botData.company,
       };
       console.log(newData);
-      setBotData(newData);
+      setBotData((prev) => ({ ...prev, newData }));
       return true;
     } catch (err) {
       return false;
