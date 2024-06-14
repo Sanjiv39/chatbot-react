@@ -58,7 +58,7 @@ export const ingestChatHistory = async (
         chat_id: uuid,
         chat_history: history,
         is_huma_chat_campaign: true,
-        email_body : email_body
+        email_body: email_body,
       },
     });
     return res;
