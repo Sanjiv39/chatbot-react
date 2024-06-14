@@ -60,7 +60,7 @@ export default function ChatbotForm() {
         name: data.name?.trim() || null,
         email: data.email?.trim() || null,
       };
-      console.log(payload, context);
+      // console.log(payload, context);
       if (
         payload.name &&
         payload.email &&
@@ -73,7 +73,7 @@ export default function ChatbotForm() {
           context.botData.websiteUrl,
           payload
         );
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data && res.data.success) {
           setTimeout(() => {
             setLoading(false);
@@ -86,7 +86,7 @@ export default function ChatbotForm() {
       }
       throw new Error("Error sending form");
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       setTimeout(() => {
         setLoading(false);
       }, 1000);
