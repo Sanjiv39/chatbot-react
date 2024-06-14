@@ -56,11 +56,11 @@ export default function ChatbotForm() {
   const formAction = async (data) => {
     try {
       setLoading(true);
-      console.log(data);
       const payload = {
         name: data.name?.trim() || null,
         email: data.email?.trim() || null,
       };
+      console.log(payload, context);
       if (
         payload.name &&
         payload.email &&
@@ -73,6 +73,7 @@ export default function ChatbotForm() {
           context.botData.websiteUrl,
           payload
         );
+        console.log(res.data);
         if (res.data && res.data.success) {
           setTimeout(() => {
             setLoading(false);
