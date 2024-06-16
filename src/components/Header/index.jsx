@@ -12,11 +12,11 @@ export default function ChatbotHeader({ onClose = () => {} }) {
             context.botData.avatar ||
             "https://humachat.s3.amazonaws.com/huma-chat-assets/avatars/avatar-3.png"
           }
-          alt={context.botData.name || "avatar"}
+          alt={context.botData?.name?.toLowerCase() || "avatar"}
         />
       </div>
       <div className="chatbox-header-text">
-        <h2>{context.botData.name || "Quill"}</h2>
+        <h2>{context.botData?.name || "Quill"}</h2>
         <p>How can I help you?</p>
       </div>
       <button

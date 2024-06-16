@@ -22,7 +22,7 @@ export default function ChatbotInput() {
       action: () => {
         const msg = {
           type: "to",
-          text: `What is ${context.botData?.company || "Humalogy"}?`,
+          text: `Tell me about yourself`,
           time: getTime(),
         };
         context.setMessage(msg);

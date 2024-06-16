@@ -129,10 +129,9 @@ export default function ChatbotContainer() {
             .match(
               /^http[s]{0,1}[:]\/\/.+[.](png|svg|jpg|jpeg|webp)\/*$/
             )?.[0] || botData.avatar,
-        company: data.company?.trim() || botData.company,
       };
       // console.log(newData);
-      setBotData((prev) => ({ ...prev, newData }));
+      setBotData((prev) => ({ ...prev, ...newData }));
       return true;
     } catch (err) {
       return false;
