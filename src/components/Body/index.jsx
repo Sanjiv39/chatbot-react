@@ -46,6 +46,7 @@ export default function ChatbotBody({
             }! Please tell me how can I help you?`,
           };
         }
+        return arr;
       });
   }, [context]);
 
