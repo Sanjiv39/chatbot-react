@@ -48,7 +48,7 @@ export default function ChatbotBody({
         }
         return arr;
       });
-  }, [context]);
+  }, [context.botData]);
 
   useEffect(() => {
     if (message) {
