@@ -122,6 +122,7 @@ export default function ChatbotContainer() {
 
   const updateData = (data) => {
     try {
+      // console.log(data);
       const newData = {
         name: data.name?.trim() || botData.name,
         avatar:
@@ -141,12 +142,6 @@ export default function ChatbotContainer() {
   };
 
   useEffect(() => {
-    // if (!userData) {
-    // secureLocalStorage.setItem("__uD__", {
-    //   email: "user@gmail.com",
-    //   "phone-no": "+916678989789",
-    // });
-    // }
     if (!uuid) {
       const uuid = uuidv7();
       // console.log(uuid);

@@ -63,7 +63,7 @@ export default function ChatbotBody({
   const sendMessagetoApi = async () => {
     if (message.type === "to" && message.text?.trim()) {
       try {
-        if (!botData.websiteUrl) {
+        if (!context.botData.websiteUrl) {
           throw new Error("Website url not found");
         }
         context.setLoading(true);
@@ -90,7 +90,7 @@ export default function ChatbotBody({
           user_question: message.text.trim().replace(/ +/g, " "),
           chat_history: chat_history,
         };
-        let res = await getResponse(payload, botData.websiteUrl);
+        let res = await getResponse(payload, context.botData.websiteUrl);
         if (
           res.data &&
           res.data.success &&
