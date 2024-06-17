@@ -98,7 +98,7 @@ export default function ChatbotContainer() {
   }, []);
 
   useEffect(() => {
-    console.log(parent, origin);
+    // console.log(parent, origin);
     acknowledgeParent();
   }, [origin, parent]);
 
@@ -114,7 +114,7 @@ export default function ChatbotContainer() {
           },
         };
         parent && origin && parent.postMessage(message, origin);
-        console.log("chatbot open by button");
+        // console.log("chatbot open by button");
       }}
     >
       <RiChat1Line />
