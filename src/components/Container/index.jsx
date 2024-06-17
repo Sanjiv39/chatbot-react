@@ -98,13 +98,12 @@ export default function ChatbotContainer() {
         let res = await getChatbotDetails(website);
         if (
           res.data &&
-          res.data.data &&
-          Array.isArray(res.data.data) &&
-          res.data.data.length === 1 &&
-          res.data.data[0] &&
-          typeof res.data.data[0] === "object"
+          Array.isArray(res.data) &&
+          res.data.length === 1 &&
+          res.data[0] &&
+          typeof res.data[0] === "object"
         ) {
-          const data = res.data.data[0];
+          const data = res.data[0];
           let avatar = data.avatar_url?.trim().match(/^http(s|)[:]\/\/.+/)
             ? data.avatar_url.trim()
             : data.avatar?.trim().toLowerCase().startsWith("avatar-")
