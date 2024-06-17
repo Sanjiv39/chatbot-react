@@ -17,7 +17,7 @@ const HUMACHAT = axios.create({
 
 export const getChatbotDetails = async (website_url = "") => {
   try {
-    if (!website_url.match(/^http(s|)[:]\/\/[^\/?#]+\/$/)) {
+    if (!website_url.match(/^http(s|)[:]\/\/.+$/)) {
       throw new Error("Invalid website url");
     }
     let res = await HUMACHAT.request({

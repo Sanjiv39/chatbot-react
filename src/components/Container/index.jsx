@@ -3,6 +3,7 @@ import { getChatbotDetails } from "../api/details";
 
 const sources = [
   "https://chatbot-cdn-chatbot.vercel.app",
+  // "http://localhost:3000",
   "https://chatbot-cdn-button.vercel.app",
 ];
 
@@ -22,13 +23,17 @@ export default function ChatbotContainer() {
   const [botData, setBotData] = useState(null);
   const [active, setActive] = useState(false);
 
-  const getFrames = () => {
-    let set = new Set([...loadedFrames]);
-    let arr = [...set];
-    return arr;
-  };
-
   useEffect(() => {
+    const root = document.querySelector("#huma-chat-container");
+    const website =
+      root &&
+      root
+        .getAttribute("data-website-url")
+        ?.trim()
+        .match(/^http(s|)[:]\/\/.+[.].+/)
+        ? root.getAttribute("data-website-url").trim()
+        : null;
+
     // verify channel message
     const verifyChannelMessage = (msg) => {
       try {
@@ -86,18 +91,10 @@ export default function ChatbotContainer() {
     // get bot details
     const updateBotDetails = async () => {
       try {
-        let website =
-          window.location.origin.match(/^http(s|)[:]\/\/[^\/?#]+/)?.[0] || null;
         if (!website) {
           throw new Error("Unable to get website url");
         }
-        // for testing
-        website = "https://excellobpo.com";
-        //
-        if (website) {
-          website += "/";
-        }
-        console.log(website);
+        // console.log(website);
         let res = await getChatbotDetails(website);
         if (
           res.data &&
@@ -115,16 +112,17 @@ export default function ChatbotContainer() {
                 .toLowerCase()}.png`
             : "https://humachat.s3.amazonaws.com/huma-chat-assets/avatars/avatar-3.png";
           const obj = {
-            name: data.chatbot_name || "Quill",
+            name: data.chatbot_name || "Huma Chat",
             avatar: avatar,
-            theme: data.theme || "#1f1f72",
+            theme: data.theme || "#13294b",
+            websiteUrl: website,
           };
           setBotData(obj);
           return;
         }
         throw new Error("Website not registered");
       } catch (err) {
-        console.log(err);
+        // console.log(err.message);
         console.log(
           "Unable to embedd chatbot. Maybe you haven't registered your site with us"
         );
@@ -150,7 +148,7 @@ export default function ChatbotContainer() {
           }, 1000);
           timers.push(repeat);
         } else {
-          console.log("frame", i + 1, "loaded");
+          // console.log("frame", i + 1, "loaded");
         }
       });
     return () => {
