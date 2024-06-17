@@ -29,7 +29,7 @@ export default function ChatbotBody({
   }, []);
 
   useEffect(() => {
-    console.log(messages);
+    // console.log(messages);
     const arr = [...messages];
     context.setMessages(arr);
   }, [messages]);
@@ -63,13 +63,34 @@ export default function ChatbotBody({
   const sendMessagetoApi = async () => {
     if (message.type === "to" && message.text?.trim()) {
       try {
+        if (!botData.websiteUrl) {
+          throw new Error("Website url not found");
+        }
         context.setLoading(true);
         const msg = { type: "from", text: "", loading: true };
         setMessages((prev) => [...prev, msg]);
+        let chat_history = messages
+          .map((msg, i) => {
+            if (i === 0 && msg.type === "from") {
+              return null;
+            }
+            const data = {
+              role: msg.type === "from" ? "assistant" : "user",
+              content: msg.text,
+            };
+            return data;
+          })
+          .filter((el) => Boolean(el));
+        chat_history.push({
+          role: "user",
+          content: message.text.trim(),
+        });
+
         const payload = {
           user_question: message.text.trim().replace(/ +/g, " "),
+          chat_history: chat_history,
         };
-        let res = await getResponse(payload);
+        let res = await getResponse(payload, botData.websiteUrl);
         if (
           res.data &&
           res.data.success &&
@@ -95,7 +116,7 @@ export default function ChatbotBody({
             },
           ];
           res = await ingestChatHistory(history, context.uuid);
-          console.log(res);
+          // console.log(res);
           if (!(res.data && res.data.success)) {
             throw new Error("ingest response error");
           }
@@ -125,7 +146,7 @@ export default function ChatbotBody({
         }
         throw new Error("error response");
       } catch (err) {
-        console.log(err);
+        // console.log(err);
         setTimeout(() => {
           setMessages((prev) => {
             let arr = [...prev];

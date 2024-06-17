@@ -2,7 +2,7 @@ import axios from "axios";
 
 const baseUrl = "https://devapi.humalogy.ai";
 const websiteUrl = window.location.origin;
-console.log(websiteUrl);
+// console.log(websiteUrl);
 const contentTypes = {
   json: "application/json",
 };
@@ -27,10 +27,10 @@ const CAMPAIGN = axios.create({
   },
 });
 
-export const getResponse = async (
-  payload,
-  website_url = "https://excellobpo.com/"
-) => {
+export const getResponse = async (payload, website_url = null) => {
+  if (!website_url) {
+    throw new Error("Webite url not found");
+  }
   try {
     let res = ASKQUERY.request({
       data: { ...payload, website_url: website_url },

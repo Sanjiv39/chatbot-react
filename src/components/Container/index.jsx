@@ -35,6 +35,7 @@ const getDataFromChannel = (msg) => {
           theme: data.theme || "",
           avatar: data.avatar || "",
           name: data.name || "",
+          websiteUrl: data.websiteUrl || "",
         },
       };
       for (const key in obj.data) {
@@ -86,11 +87,11 @@ export default function ChatbotContainer() {
   );
   const [uuid, setuuid] = useState(secureLocalStorage.getItem("__uID__"));
   const [botData, setBotData] = useState({
-    name: "Quill",
+    name: "Huma Chat",
     avatar:
       "https://humachat.s3.amazonaws.com/huma-chat-assets/avatars/avatar-3.png",
     company: "Excello",
-    websiteUrl: "https://excellobpo.com/",
+    websiteUrl: null,
   });
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState(null);
@@ -129,6 +130,7 @@ export default function ChatbotContainer() {
             .match(
               /^http[s]{0,1}[:]\/\/.+[.](png|svg|jpg|jpeg|webp)\/*$/
             )?.[0] || botData.avatar,
+        websiteUrl: data.websiteUrl || null,
       };
       // console.log(newData);
       setBotData((prev) => ({ ...prev, ...newData }));
@@ -147,7 +149,7 @@ export default function ChatbotContainer() {
     // }
     if (!uuid) {
       const uuid = uuidv7();
-      console.log(uuid);
+      // console.log(uuid);
       secureLocalStorage.setItem("__uID__", uuid);
       setuuid(uuid);
     }
@@ -169,7 +171,7 @@ export default function ChatbotContainer() {
         const msg = e.data;
         // console.log(msg);
         const data = getDataFromChannel(msg);
-        console.log(data);
+        // console.log(data);
         const updated = updateColor(data);
         updateData(data.data);
         // console.log(`Color was ${!updated ? "not" : ""} updated`);
@@ -185,7 +187,7 @@ export default function ChatbotContainer() {
   }, [userData]);
 
   useEffect(() => {
-    console.log(parent, origin);
+    // console.log(parent, origin);
     acknowledgeParent();
   }, [origin, parent]);
 
@@ -233,7 +235,7 @@ export default function ChatbotContainer() {
                 },
               };
               parent && origin && parent.postMessage(message, origin);
-              console.log("chatbot closed by chatbot");
+              // console.log("chatbot closed by chatbot");
             }}
           />
           <ChatbotBody message={message} />
