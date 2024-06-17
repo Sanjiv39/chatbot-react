@@ -117,6 +117,7 @@ export default function ChatbotContainer() {
             theme: data.theme || "#13294b",
             websiteUrl: website,
           };
+          // console.log(obj);
           setBotData(obj);
           return;
         }
