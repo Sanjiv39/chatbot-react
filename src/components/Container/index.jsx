@@ -98,14 +98,15 @@ export default function ChatbotContainer() {
         let res = await getChatbotDetails(website);
         if (
           res.data &&
-          Array.isArray(res.data) &&
-          res.data.length === 1 &&
-          res.data[0] &&
-          typeof res.data[0] === "object"
+          res.data.data &&
+          Array.isArray(res.data.data) &&
+          res.data.data.length === 1 &&
+          res.data.data[0] &&
+          typeof res.data.data[0] === "object"
         ) {
-          const data = res.data[0];
-          let avatar = data.avatar?.trim().match(/^http(s|)[:]\/\/.+/)
-            ? data.avatar.trim()
+          const data = res.data.data[0];
+          let avatar = data.avatar_url?.trim().match(/^http(s|)[:]\/\/.+/)
+            ? data.avatar_url.trim()
             : data.avatar?.trim().toLowerCase().startsWith("avatar-")
             ? `https://humachat.s3.amazonaws.com/huma-chat-assets/avatars/${data.avatar
                 .trim()
@@ -123,7 +124,7 @@ export default function ChatbotContainer() {
         }
         throw new Error("Website not registered");
       } catch (err) {
-        // console.log(err.message);
+        console.log(err.message);
         console.log(
           "Unable to embedd chatbot. Maybe you haven't registered your site with us"
         );
