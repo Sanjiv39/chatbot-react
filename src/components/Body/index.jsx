@@ -115,7 +115,11 @@ export default function ChatbotBody({
               },
             },
           ];
-          res = await ingestChatHistory(history, context.uuid);
+          res = await ingestChatHistory(
+            history,
+            context.uuid,
+            context.botData.websiteUrl
+          );
           // console.log(res);
           if (!(res.data && res.data.success)) {
             throw new Error("ingest response error");
