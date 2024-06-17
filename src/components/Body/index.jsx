@@ -20,7 +20,7 @@ export default function ChatbotBody({
         {
           type: "from",
           text: `Hi this is ${
-            context.botData?.name || "Quill"
+            context.botData?.name || "Huma Chat"
           }! Please tell me how can I help you?`,
           time: time,
         },
@@ -33,6 +33,21 @@ export default function ChatbotBody({
     const arr = [...messages];
     context.setMessages(arr);
   }, [messages]);
+
+  useEffect(() => {
+    context.botData?.name &&
+      setMessages((prev) => {
+        let arr = [...prev];
+        if (arr[0] && arr[0].type && arr[0].type === "from") {
+          arr[0] = {
+            ...arr[0],
+            text: `Hi this is ${
+              context.botData.name || "Huma Chat"
+            }! Please tell me how can I help you?`,
+          };
+        }
+      });
+  }, [context]);
 
   useEffect(() => {
     if (message) {
