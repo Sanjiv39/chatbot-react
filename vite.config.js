@@ -21,9 +21,9 @@ export default defineConfig({
     minify: true,
     rollupOptions: {
       output: {
-        chunkFileNames: "assets/[name].js",
-        entryFileNames: "assets/[name].js",
-        assetFileNames: "assets/[name].[ext]",
+        chunkFileNames: "assets/script.min.js",
+        entryFileNames: "assets/script.min.js",
+        assetFileNames: "assets/style.min.[ext]",
       },
     },
   },
