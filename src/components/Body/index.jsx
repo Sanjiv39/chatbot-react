@@ -116,7 +116,11 @@ export default function ChatbotBody({
           const time = getTime();
           const response = {
             type: "from",
-            text: res.data.data.message.replace("\n\nHumaChat:", "").trim(),
+            text: res.data.data.message
+              .replace("HumaChat:", "")
+              .replace(/\n/g, "")
+              .replace("HumaChat", context.botData?.name || "HumaChat")
+              .trim(),
             time: time,
             className: "chatbox-fade",
             typer: true,
