@@ -18,7 +18,7 @@ export default defineConfig({
   },
   build: {
     // outDir: "chatbot/dist",
-    sourcemap: true,
+    sourcemap: false,
     minify: true,
     rollupOptions: {
       output: {
