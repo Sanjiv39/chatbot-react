@@ -458,7 +458,7 @@ input {
 .dot {
   width: 6px;
   height: 6px;
-  background: white;
+  background: var(--font-color);
   display: inline-block;
   border-radius: 50%;
   right: 0px;
