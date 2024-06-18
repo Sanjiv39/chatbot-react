@@ -106,8 +106,8 @@ export default function ChatbotContainer() {
           const data = res.data[0];
           let avatar = data.avatar_url?.trim().match(/^http(s|)[:]\/\/.+/)
             ? data.avatar_url.trim()
-            : data.avatar?.trim().toLowerCase().startsWith("avatar-")
-            ? `https://humachat.s3.amazonaws.com/huma-chat-assets/avatars/${data.avatar
+            : data.avatar_url?.trim().toLowerCase().startsWith("avatar-")
+            ? `https://humachat.s3.amazonaws.com/huma-chat-assets/avatars/${data.avatar_url
                 .trim()
                 .toLowerCase()}.png`
             : "https://humachat.s3.amazonaws.com/huma-chat-assets/avatars/avatar-3.png";
