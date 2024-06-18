@@ -104,6 +104,12 @@ export default function ChatbotContainer() {
           typeof res.data[0] === "object"
         ) {
           const data = res.data[0];
+          if (
+            !data.processing_status ||
+            data.processing_status?.toLowerCase().trim() !== "done"
+          ) {
+            throw new Error("not-ready");
+          }
           let avatar = data.avatar_url?.trim().match(/^http(s|)[:]\/\/.+/)
             ? data.avatar_url.trim()
             : data.avatar_url?.trim().toLowerCase().startsWith("avatar-")
@@ -123,7 +129,11 @@ export default function ChatbotContainer() {
         }
         throw new Error("Website not registered");
       } catch (err) {
-        console.log(err.message);
+        // console.log(err.message);
+        if (err?.message === "not-ready") {
+          console.log("Your chatbot is not yet ready!");
+          return;
+        }
         console.log(
           "Unable to embedd chatbot. Maybe you haven't registered your site with us"
         );
