@@ -2,9 +2,16 @@ import React, { useEffect, useState } from "react";
 import { getChatbotDetails } from "../api/details";
 
 const sources = [
-  "https://chatbot-cdn-chatbot.vercel.app",
+  // chatbox
+  // "https://chatbot-cdn-chatbot.vercel.app",
   // "http://localhost:3000",
-  "https://chatbot-cdn-button.vercel.app",
+  // "https://humachat.s3.amazonaws.com/chatbot/dist/index.html",
+  "https://d2qnaus9rmh238.cloudfront.net/chatbot/dist/index.html",
+
+  // button
+  // "https://chatbot-cdn-button.vercel.app",
+  // "https://humachat.s3.amazonaws.com/button/dist/index.html",
+  "https://d2qnaus9rmh238.cloudfront.net/button/dist/index.html",
 ];
 
 const sendBotData = (frame, data) => {
@@ -15,7 +22,11 @@ const sendBotData = (frame, data) => {
       data: { ...data },
     },
   };
-  frame.contentWindow.postMessage(msg, frame.src);
+  // console.log(frame.src.match(/^http(s|)[:]\/\/[^\/?#]+/)?.[0]);
+  frame.contentWindow.postMessage(
+    msg,
+    frame.src.match(/^http(s|)[:]\/\/[^\/?#]+/)?.[0]
+  );
 };
 
 export default function ChatbotContainer() {
@@ -81,8 +92,15 @@ export default function ChatbotContainer() {
       } else if (acknowledge) {
         [...sources].forEach((src) => {
           let origin = e.origin.match(/^http(s|)[:]\/\/[^\/?#]+/)?.[0];
+          // console.log(origin, e.origin);
           if (src.startsWith(origin)) {
-            setLoadedFrames((prev) => [...prev, src]);
+            setLoadedFrames((prev) => {
+              let arr = [...prev];
+              arr.push(src);
+              let set = new Set(arr);
+              let final = [...set];
+              return final;
+            });
           }
         });
       }
@@ -146,13 +164,14 @@ export default function ChatbotContainer() {
     let frames = document.querySelectorAll(".huma-chat-iframe");
     let timers = [];
 
-    // console.log(loadedFrames);
+    // console.log(loadedFrames, botData);
 
     // Check if all frames and document is properly loaded
     Boolean(frames.length) &&
       Boolean(botData) &&
       frames.forEach((frame, i) => {
-        let src = frame.src.match(/^http(s|)[:]\/\/[^\/?#]+/)?.[0];
+        let src = frame.src;
+        // console.log(src);
         if (!loadedFrames.includes(src)) {
           const repeat = setInterval(() => {
             sendBotData(frame, botData);
@@ -181,8 +200,8 @@ export default function ChatbotContainer() {
       ></iframe>
       <iframe
         style={
-          loadedFrames.length === 2 &&
           loadedFrames.includes(sources[1]) &&
+          loadedFrames.length === 2 &&
           botData
             ? { display: "block" }
             : { display: "none" }
