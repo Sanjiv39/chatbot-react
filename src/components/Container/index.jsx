@@ -99,7 +99,7 @@ export default function ChatbotContainer() {
         if (
           res.data &&
           Array.isArray(res.data) &&
-          res.data.length === 1 &&
+          res.data.length > 0 &&
           res.data[0] &&
           typeof res.data[0] === "object"
         ) {
