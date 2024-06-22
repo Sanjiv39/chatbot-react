@@ -3,10 +3,10 @@ import { getChatbotDetails } from "../api/details";
 
 const sources = [
   // chatbox
-  // "https://chatbot-cdn-chatbot.vercel.app",
+  "https://chatbot-cdn-chatbot.vercel.app",
   // "http://localhost:3000",
   // "https://humachat.s3.amazonaws.com/chatbot/dist/index.html",
-  "https://d2qnaus9rmh238.cloudfront.net/chatbot/dist/index.html",
+  // "https://d2qnaus9rmh238.cloudfront.net/chatbot/dist/index.html",
 
   // button
   // "https://chatbot-cdn-button.vercel.app",
@@ -44,14 +44,15 @@ export default function ChatbotContainer() {
         .match(/^http(s|)[:]\/\/.+[.].+/)
         ? root.getAttribute("data-website-url").trim()
         : null;
-    const user_id =
+    let user_id =
       root &&
       root
         .getAttribute("data-id")
         ?.trim()
-        .match(/^[0-9]+/)
+        .match(/^[0-9]+$/)
         ? root.getAttribute("data-id").trim()
         : null;
+
     // verify channel message
     const verifyChannelMessage = (msg) => {
       try {
@@ -147,7 +148,7 @@ export default function ChatbotContainer() {
             avatar: avatar,
             theme: data.theme || "#13294b",
             websiteUrl: website,
-            userId: user_id,
+            userId: Number.parseInt(user_id),
           };
           // console.log(obj);
           setBotData(obj);
