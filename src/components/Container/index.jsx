@@ -41,8 +41,11 @@ const getDataFromChannel = (msg) => {
       };
       for (const key in obj.data) {
         const isNum = typeof obj.data[key] === "number";
+        if (isNum) {
+          continue;
+        }
         const val = Boolean(obj.data[key]?.trim());
-        if (!val && !isNum) {
+        if (!val) {
           delete obj[key];
         }
       }
