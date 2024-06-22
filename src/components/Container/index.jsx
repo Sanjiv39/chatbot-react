@@ -36,6 +36,7 @@ const getDataFromChannel = (msg) => {
           avatar: data.avatar || "",
           name: data.name || "",
           websiteUrl: data.websiteUrl || "",
+          userId: data.userId,
         },
       };
       for (const key in obj.data) {
