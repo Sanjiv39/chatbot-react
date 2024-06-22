@@ -44,7 +44,14 @@ export default function ChatbotContainer() {
         .match(/^http(s|)[:]\/\/.+[.].+/)
         ? root.getAttribute("data-website-url").trim()
         : null;
-
+    const user_id =
+      root &&
+      root
+        .getAttribute("data-id")
+        ?.trim()
+        .match(/^[0-9]+/)
+        ? root.getAttribute("data-id").trim()
+        : null;
     // verify channel message
     const verifyChannelMessage = (msg) => {
       try {
@@ -140,6 +147,7 @@ export default function ChatbotContainer() {
             avatar: avatar,
             theme: data.theme || "#13294b",
             websiteUrl: website,
+            userId: user_id,
           };
           // console.log(obj);
           setBotData(obj);
