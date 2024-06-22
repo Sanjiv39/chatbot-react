@@ -92,6 +92,7 @@ export default function ChatbotContainer() {
       "https://humachat.s3.amazonaws.com/huma-chat-assets/avatars/avatar-3.png",
     company: "Excello",
     websiteUrl: null,
+    userId: null,
   });
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState(null);
@@ -132,6 +133,7 @@ export default function ChatbotContainer() {
               /^http[s]{0,1}[:]\/\/.+[.](png|svg|jpg|jpeg|webp)\/*$/
             )?.[0] || botData.avatar,
         websiteUrl: data.websiteUrl || null,
+        userId: data.userId || null,
       };
       // console.log(newData);
       setBotData((prev) => ({ ...prev, ...newData }));

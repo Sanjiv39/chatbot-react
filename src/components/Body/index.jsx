@@ -105,6 +105,7 @@ export default function ChatbotBody({
         const payload = {
           user_question: message.text.trim().replace(/ +/g, " "),
           chat_history: chat_history,
+          user_id: context.botData.userId || null,
         };
         let res = await getResponse(payload, context.botData.websiteUrl);
         if (
