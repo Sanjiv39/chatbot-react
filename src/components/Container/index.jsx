@@ -136,7 +136,7 @@ export default function ChatbotContainer() {
         websiteUrl: data.websiteUrl || null,
         userId: data.userId || null,
       };
-      // console.log(newData);
+      console.log(newData);
       setBotData((prev) => ({ ...prev, ...newData }));
       return true;
     } catch (err) {
@@ -167,7 +167,7 @@ export default function ChatbotContainer() {
           // console.log("source updated");
         }
         const msg = e.data;
-        // console.log(msg);
+        console.log(msg);
         const data = getDataFromChannel(msg);
         // console.log(data);
         const updated = updateColor(data);
