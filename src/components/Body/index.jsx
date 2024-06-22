@@ -82,6 +82,9 @@ export default function ChatbotBody({
         if (!context.botData.websiteUrl) {
           throw new Error("Website url not found");
         }
+        if (!context.botData.userId) {
+          throw new Error("Id not found");
+        }
         context.setLoading(true);
         const msg = { type: "from", text: "", loading: true };
         setMessages((prev) => [...prev, msg]);

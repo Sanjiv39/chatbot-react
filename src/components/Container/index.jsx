@@ -136,7 +136,7 @@ export default function ChatbotContainer() {
         websiteUrl: data.websiteUrl || null,
         userId: data.userId || null,
       };
-      console.log(newData);
+      // console.log(newData);
       setBotData((prev) => ({ ...prev, ...newData }));
       return true;
     } catch (err) {
