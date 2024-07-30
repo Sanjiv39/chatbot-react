@@ -6,6 +6,9 @@ const baseUrl = "https://api.humalogy.ai";
 // const websiteUrl = window.location.origin;
 // console.log(websiteUrl);
 
+// const humaJwt = import.meta.env.VITE_HUMA_JWT;
+const humaUuid = import.meta.env.VITE_HUMA_UUID;
+
 const contentTypes = {
   json: "application/json",
 };
@@ -18,9 +21,6 @@ const ASKQUERY = axios.create({
     Authorization: humaUuid,
   },
 });
-
-// const humaJwt = import.meta.env.VITE_HUMA_JWT;
-const humaUuid = import.meta.env.VITE_HUMA_UUID;
 
 // console.log(humaJwt);
 const CAMPAIGN = axios.create({
