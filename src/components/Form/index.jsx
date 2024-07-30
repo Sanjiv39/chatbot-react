@@ -36,7 +36,7 @@ const schema = new Yup.object({
   //   }),
 });
 
-export default function ChatbotForm() {
+export default function ChatbotForm({ handleFormSubmissionMessage }) {
   const context = useContext(App);
   const lastRef = useRef();
   const [loading, setLoading] = useState(false);
@@ -79,6 +79,7 @@ export default function ChatbotForm() {
             setLoading(false);
           }, 1000);
           context.setUserData(payload);
+          handleFormSubmissionMessage();
           secureLocalStorage.setItem("__uD__", payload);
           return;
         }

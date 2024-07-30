@@ -73,6 +73,17 @@ export default function ChatbotBody({
     lastElRef.current && lastElRef.current?.scrollIntoView();
   }, [lastElRef]);
 
+  const sendFormSubmissionMessageFromBot = () => {
+    const time = getTime();
+    const msg = {
+      type: "from",
+      text: "Thanks for sharing your details. We will reach out to you shortly.",
+      time: time,
+      className: "chatbox-fade",
+    };
+    setMessages((prev) => [...prev, msg]);
+  };
+
   const sendMessagetoApi = async () => {
     if (message.type === "to" && message.text?.trim()) {
       try {
@@ -211,7 +222,9 @@ export default function ChatbotBody({
       )} */}
 
       {context.form === true && !context.loading && !context.formClosed && (
-        <ChatbotForm />
+        <ChatbotForm
+          handleFormSubmissionMessage={sendFormSubmissionMessageFromBot}
+        />
       )}
 
       {context.form === false && !context.loading && !context.formClosed && (
