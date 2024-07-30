@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import axios from "axios";
 
-const baseUrl = "https://devapi.humalogy.ai";
+const baseUrl = "https://api.humalogy.ai";
 
 // const websiteUrl = window.location.origin;
 // console.log(websiteUrl);
@@ -15,6 +15,7 @@ const ASKQUERY = axios.create({
   method: "post",
   headers: {
     "Content-Type": contentTypes.json,
+    Authorization: humaUuid,
   },
 });
 
