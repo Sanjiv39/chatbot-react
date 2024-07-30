@@ -2,7 +2,12 @@ import React from "react";
 
 export default function ChatbotFooter() {
   return (
-    <a class="chatbox-footer" href="https://humalogy.ai" target="_blank">
+    <a
+      className="chatbox-footer"
+      href="https://humalogy.ai"
+      target="_blank"
+      rel="noreferrer"
+    >
       Powered by{" "}
       <span>
         <img

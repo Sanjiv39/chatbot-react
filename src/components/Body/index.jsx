@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useRef, useState } from "react";
 import ChatbotMessage from "../Message";
 import { App } from "../Container";
@@ -6,7 +7,7 @@ import { getResponse, ingestChatHistory } from "../apis/apis";
 import ChatbotForm from "../Form";
 
 export default function ChatbotBody({
-  message = { type: "to", text: "", time, className: "" },
+  message = { type: "to", text: "", time: "", className: "" },
 }) {
   const context = useContext(App);
   const lastElRef = useRef();
@@ -19,9 +20,7 @@ export default function ChatbotBody({
         ...prev,
         {
           type: "from",
-          text: `Hi this is ${
-            context.botData?.name || "Huma Chat"
-          }! Please tell me how can I help you?`,
+          text: `Hey there! How can I help you today?`,
           time: time,
         },
       ]);
@@ -41,9 +40,7 @@ export default function ChatbotBody({
         if (arr[0] && arr[0].type && arr[0].type === "from") {
           arr[0] = {
             ...arr[0],
-            text: `Hi this is ${
-              context.botData.name || "Huma Chat"
-            }! Please tell me how can I help you?`,
+            text: `Hey there! How can I help you today?`,
           };
         }
         return arr;
@@ -108,7 +105,8 @@ export default function ChatbotBody({
         const payload = {
           user_question: message.text.trim().replace(/ +/g, " "),
           chat_history: chat_history,
-          user_id: context.botData.userId || null,
+          user_id: context.botData?.userId || null,
+          chatbot_name: context.botData?.name || "Chatbot",
         };
         let res = await getResponse(payload, context.botData.websiteUrl);
         if (
@@ -198,8 +196,9 @@ export default function ChatbotBody({
         }
       >
         {messages.length > 0 &&
-          messages.map((msg) => <ChatbotMessage message={msg} />)}
+          messages.map((msg, i) => <ChatbotMessage message={msg} key={i} />)}
       </div>
+
       {/* {!context.form && (
         <button
           className="open-form-btn"
@@ -210,9 +209,11 @@ export default function ChatbotBody({
           Share your Contact details
         </button>
       )} */}
+
       {context.form === true && !context.loading && !context.formClosed && (
         <ChatbotForm />
       )}
+
       {context.form === false && !context.loading && !context.formClosed && (
         <div className="open-form-card">
           <p>To personalise your experience, please enter your information</p>

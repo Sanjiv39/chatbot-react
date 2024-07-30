@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 // import { isValidPhoneNumber } from "react-phone-number-input";
 import { IoCloseOutline } from "react-icons/io5";
 // import PhoneInput from "react-phone-input-2";
@@ -17,7 +17,7 @@ const schema = new Yup.object({
     .trim("Name is required")
     .min(4, "Minimum 4 characters required")
     .test("isvalid", "Only enter alphabets", (val) => {
-      return !Boolean(val.trim().match(/[0-9]/g));
+      return !val.trim().match(/[0-9]/g);
     }),
   email: Yup.string()
     .required("Email is required")
@@ -44,10 +44,10 @@ export default function ChatbotForm() {
   const {
     register,
     handleSubmit,
-    watch,
+    // watch,
     formState: { errors },
-    control,
-    reset,
+    // control,
+    // reset,
     // getValues
   } = useForm({
     resolver: yupResolver(schema),

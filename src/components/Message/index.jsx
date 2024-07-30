@@ -69,10 +69,11 @@ export default function ChatbotMessage({
           )}
           {message.loading && (
             <div className="message">
-              <span class="dots-cont">
+              <span className="dots-cont">
                 {" "}
-                <span class="dot dot-1"></span> <span class="dot dot-2"></span>{" "}
-                <span class="dot dot-3"></span>{" "}
+                <span className="dot dot-1"></span>{" "}
+                <span className="dot dot-2"></span>{" "}
+                <span className="dot dot-3"></span>{" "}
               </span>
             </div>
           )}

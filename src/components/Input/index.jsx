@@ -18,11 +18,11 @@ export default function ChatbotInput() {
       disabled: context.userData,
     },
     {
-      text: `About Me`,
+      text: `Who am I ?`,
       action: () => {
         const msg = {
           type: "to",
-          text: `Tell me about yourself`,
+          text: `Who are you ?`,
           time: getTime(),
         };
         context.setMessage(msg);
@@ -58,10 +58,10 @@ export default function ChatbotInput() {
         ))}
       </div>
       <input
-        inputmode="text"
+        inputMode="text"
         type="text"
         name="chatbox-input"
-        autocomplete="off"
+        autoComplete="off"
         placeholder="Type something..."
         className="chatbox-input"
         value={message}

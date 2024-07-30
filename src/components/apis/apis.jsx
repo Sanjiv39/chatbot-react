@@ -1,8 +1,11 @@
+/* eslint-disable react-refresh/only-export-components */
 import axios from "axios";
 
 const baseUrl = "https://devapi.humalogy.ai";
-const websiteUrl = window.location.origin;
+
+// const websiteUrl = window.location.origin;
 // console.log(websiteUrl);
+
 const contentTypes = {
   json: "application/json",
 };
@@ -15,8 +18,9 @@ const ASKQUERY = axios.create({
   },
 });
 
-const humaJwt = import.meta.env.VITE_HUMA_JWT;
+// const humaJwt = import.meta.env.VITE_HUMA_JWT;
 const humaUuid = import.meta.env.VITE_HUMA_UUID;
+
 // console.log(humaJwt);
 const CAMPAIGN = axios.create({
   baseURL: baseUrl + "/campaign",

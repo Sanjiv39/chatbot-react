@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useEffect, useState } from "react";
 import { v6 as uuidv7 } from "uuid";
 import secureLocalStorage from "react-secure-storage";
@@ -92,15 +94,16 @@ export default function ChatbotContainer() {
   );
   const [uuid, setuuid] = useState(secureLocalStorage.getItem("__uID__"));
   const [botData, setBotData] = useState({
-    name: "Huma Chat",
+    name: "Chatbot",
     avatar:
       "https://humachat.s3.amazonaws.com/huma-chat-assets/avatars/avatar-3.png",
-    company: "Excello",
+    company: "",
     websiteUrl: null,
     userId: null,
   });
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState(null);
+  // eslint-disable-next-line no-unused-vars
   const [active, setActive] = useState(false);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState(undefined);
@@ -109,9 +112,9 @@ export default function ChatbotContainer() {
   const [parent, setParent] = useState(null);
   const [origin, setOrigin] = useState("");
 
-  const toggleActive = () => {
-    setActive((prev) => !prev);
-  };
+  // const toggleActive = () => {
+  //   setActive((prev) => !prev);
+  // };
 
   const acknowledgeParent = () => {
     if (parent && origin) {
@@ -174,7 +177,8 @@ export default function ChatbotContainer() {
         // console.log(msg);
         const data = getDataFromChannel(msg);
         // console.log(data);
-        const updated = updateColor(data);
+        /* const updated =  */
+        updateColor(data);
         updateData(data.data);
         // console.log(`Color was ${!updated ? "not" : ""} updated`);
         // console.log(Boolean(updated && data));
