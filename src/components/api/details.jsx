@@ -7,7 +7,7 @@ const contentTypes = {
 };
 
 const HUMACHAT = axios.create({
-  baseURL: "https://api.humalogy.ai/huma-chat",
+  baseURL: "https://devapi.humalogy.ai/huma-chat",
   method: "post",
   headers: {
     "Content-Type": contentTypes.json,
