@@ -95,7 +95,7 @@ export default function ChatbotForm({ handleFormSubmissionMessage }) {
   };
 
   useEffect(() => {
-    console.log(lastRef);
+    // console.log(lastRef);
     lastRef.current?.scrollIntoView();
   }, [lastRef]);
 

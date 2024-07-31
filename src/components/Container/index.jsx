@@ -203,7 +203,7 @@ export default function ChatbotContainer() {
       form === undefined &&
       messages.filter(
         (msg) => msg.type === "from" && !Boolean(msg.autonomous) && !msg.loading
-      ).length > 2
+      ).length >= 2
     ) {
       setForm(true);
     }
