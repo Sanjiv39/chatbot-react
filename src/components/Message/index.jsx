@@ -28,8 +28,11 @@ export default function ChatbotMessage({
         }, 2000);
       }
     }
-    messageRef.current?.scrollIntoView();
   }, [message, messageRef]);
+
+  useEffect(() => {
+    messageRef.current?.scrollIntoView();
+  }, [messageRef]);
 
   return (
     <div
