@@ -120,7 +120,6 @@ export default function ChatbotForm({ handleFormSubmissionMessage }) {
                 className="form-input"
                 required
                 name="name"
-                placeholder="Shane"
               />
               <p className="form-err">{errors["name"]?.message || ""}</p>
             </div>
@@ -132,7 +131,6 @@ export default function ChatbotForm({ handleFormSubmissionMessage }) {
                 className="form-input"
                 required
                 name="email"
-                placeholder="user@gmail.com"
               />
               <p className="form-err">{errors["email"]?.message || ""}</p>
             </div>

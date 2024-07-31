@@ -201,9 +201,11 @@ export default function ChatbotContainer() {
     if (
       !formClosed &&
       form === undefined &&
-      messages.filter((msg) => msg.type === "from" && !msg.loading).length > 4
+      messages.filter(
+        (msg) => msg.type === "from" && !Boolean(msg.autonomous) && !msg.loading
+      ).length > 2
     ) {
-      setForm(false);
+      setForm(true);
     }
   }, [messages]);
 

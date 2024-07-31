@@ -20,6 +20,7 @@ export default function ChatbotBody({
         ...prev,
         {
           type: "from",
+          autonomous: true,
           text: `Hey there! How can I help you today?`,
           time: time,
         },
@@ -77,6 +78,7 @@ export default function ChatbotBody({
     const time = getTime();
     const msg = {
       type: "from",
+      autonomous: true,
       text: "Thanks for sharing your details. We will reach out to you shortly.",
       time: time,
       className: "chatbox-fade",
