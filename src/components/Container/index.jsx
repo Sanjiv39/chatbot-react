@@ -150,6 +150,7 @@ export default function ChatbotContainer() {
             theme: data.theme || "#13294b",
             websiteUrl: website,
             userId: Number.parseInt(user_id),
+            botId: data.campaign,
           };
           // console.log(obj);
           setBotData(obj);
