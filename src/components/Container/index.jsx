@@ -39,6 +39,7 @@ const getDataFromChannel = (msg) => {
           name: data.name || "",
           websiteUrl: data.websiteUrl || "",
           userId: data.userId,
+          botId: data.botId,
         },
       };
       for (const key in obj.data) {
@@ -93,6 +94,7 @@ export default function ChatbotContainer() {
     secureLocalStorage.getItem("__uD__")
   );
   const [uuid, setuuid] = useState(secureLocalStorage.getItem("__uID__"));
+  const [botId, setBotId] = useState(secureLocalStorage.getItem("__bID__"));
   const [botData, setBotData] = useState({
     name: "Chatbot",
     avatar:
@@ -100,6 +102,7 @@ export default function ChatbotContainer() {
     company: "",
     websiteUrl: null,
     userId: null,
+    botId: null,
   });
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState(null);
@@ -142,6 +145,7 @@ export default function ChatbotContainer() {
             )?.[0] || botData.avatar,
         websiteUrl: data.websiteUrl || null,
         userId: data.userId || null,
+        botId: data.botId || null,
       };
       // console.log(newData);
       setBotData((prev) => ({ ...prev, ...newData }));
@@ -196,6 +200,19 @@ export default function ChatbotContainer() {
     // console.log(parent, origin);
     acknowledgeParent();
   }, [origin, parent]);
+
+  useEffect(() => {
+    // console.log(botId, botData);
+    if (botData.botId) {
+      if (botId !== botData.botId) {
+        setForm(undefined);
+        setFormClosed(false);
+        secureLocalStorage.setItem("__bID__", botData.botId);
+        setBotId(botData.botId);
+        setUserData(null);
+      }
+    }
+  }, [botId, botData.botId]);
 
   useEffect(() => {
     if (
