@@ -279,6 +279,7 @@ input {
   color: var(--font-color);
   border-bottom-left-radius: 0;
   border: 1.5px solid var(--theme-color);
+  white-space: pre-wrap;
 }
 .chatbox-message.from .chatbox-time {
   text-align: left;

@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import axios from "axios";
 
+// const baseUrl = "https://api.humalogy.ai";
 const baseUrl = "https://devapi.humalogy.ai";
 
 // const websiteUrl = window.location.origin;

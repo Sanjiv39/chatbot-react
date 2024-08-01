@@ -133,7 +133,7 @@ export default function ChatbotBody({
             type: "from",
             text: res.data.data.message
               .replace("HumaChat:", "")
-              .replace(/\n/g, "")
+              // .replace(/\n/g, "")
               .replace("HumaChat", context.botData?.name || "HumaChat")
               .trim(),
             time: time,
