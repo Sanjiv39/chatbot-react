@@ -9,10 +9,10 @@ const sources = [
   // "https://d2qnaus9rmh238.cloudfront.net/chatbot/dist/index.html",
 
   // button
-  "https://chatbot-cdn-button.vercel.app",
+  // "https://chatbot-cdn-button.vercel.app",
   // "http://localhost:3001",
   // "https://humachat.s3.amazonaws.com/button/dist/index.html",
-  // "https://d2qnaus9rmh238.cloudfront.net/button/dist/index.html",
+  "https://d2qnaus9rmh238.cloudfront.net/button/dist/index.html",
 ];
 
 const sendBotData = (frame, data) => {
