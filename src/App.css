@@ -3,6 +3,7 @@
   bottom: 0px;
   right: 0px;
   --theme-color: #1f1f72;
+  z-index: 1000000;
 }
 
 .huma-chat-container iframe {

@@ -3,8 +3,8 @@ import { getChatbotDetails } from "../api/details";
 
 const sources = [
   // chatbox
-  "https://chatbot-cdn-chatbot.vercel.app",
-  // "http://localhost:3000",
+  // "https://chatbot-cdn-chatbot.vercel.app",
+  "http://localhost:3000",
   // "https://humachat.s3.amazonaws.com/chatbot/dist/index.html",
   // "https://d2qnaus9rmh238.cloudfront.net/chatbot/dist/index.html",
 
