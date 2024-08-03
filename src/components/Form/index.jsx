@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-// import { isValidPhoneNumber } from "react-phone-number-input";
+import { isValidPhoneNumber } from "react-phone-number-input";
+import PhoneInput from "react-phone-input-2";
 import { IoCloseOutline } from "react-icons/io5";
 // import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -11,7 +12,7 @@ import { TailSpin } from "react-loader-spinner";
 import { App } from "../Container";
 import secureLocalStorage from "react-secure-storage";
 
-const schema = new Yup.object({
+const schema = Yup.object({
   name: Yup.string()
     .required("Name is required")
     .trim("Name is required")
@@ -27,13 +28,13 @@ const schema = new Yup.object({
   //   .required("Company name is required")
   //   .trim("Company name is required")
   //   .min(4, "Please enter min 4 characters"),
-  // phone_no: Yup.string()
-  //   .required("Phone number is required")
-  //   .test("isvalid", "Please enter a valid phone no", (val) => {
-  //     const valid = isValidPhoneNumber(val);
-  //     console.log(valid);
-  //     return valid;
-  //   }),
+  phone_no: Yup.string()
+    .notRequired()
+    .test("isvalid", "Please enter a valid phone no", (val) => {
+      const valid = isValidPhoneNumber(val || "");
+      // console.log(valid, val);
+      return valid || !val;
+    }),
 });
 
 export default function ChatbotForm({ handleFormSubmissionMessage }) {
@@ -44,11 +45,8 @@ export default function ChatbotForm({ handleFormSubmissionMessage }) {
   const {
     register,
     handleSubmit,
-    // watch,
+    setValue,
     formState: { errors },
-    // control,
-    // reset,
-    // getValues
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -56,10 +54,13 @@ export default function ChatbotForm({ handleFormSubmissionMessage }) {
   const formAction = async (data) => {
     try {
       setLoading(true);
-      const payload = {
+      let payload = {
         name: data.name?.trim() || null,
         email: data.email?.trim() || null,
       };
+      if (data.phone_no) {
+        payload.phone_no = data.phone_no;
+      }
       // console.log(payload, context);
       if (
         payload.name &&
@@ -114,7 +115,7 @@ export default function ChatbotForm({ handleFormSubmissionMessage }) {
               <IoCloseOutline />
             </button>
             <div className="input-wrapper">
-              <label className="form-label">Name</label>
+              <label className="form-label required">Name</label>
               <input
                 {...register("name")}
                 type="text"
@@ -125,7 +126,7 @@ export default function ChatbotForm({ handleFormSubmissionMessage }) {
               <p className="form-err">{errors["name"]?.message || ""}</p>
             </div>
             <div className="input-wrapper">
-              <label className="form-label">Email</label>
+              <label className="form-label required">Email</label>
               <input
                 {...register("email")}
                 type="email"
@@ -147,34 +148,21 @@ export default function ChatbotForm({ handleFormSubmissionMessage }) {
           />
         </div> */}
             {/* <p className="form-err">{errors["company"]?.message || ""}</p> */}
-            {/* <div className="input-wrapper">
-          <label className="form-label">Enter phone number</label>
-          <Controller
-            control={control}
-            name={"phone_no"}
-            rules={{ required: true }}
-            placeholder={"+1772XXXXX78"}
-            defaultValue={""}
-            render={({ field: { ref, ...field } }) => (
+            <div className="input-wrapper">
+              <label className="form-label">Enter phone number</label>
               <PhoneInput
-                {...field}
-                inputProps={ref}
                 className="form-input"
                 containerStyle={{ padding: "8px" }}
                 country={"us"}
                 enableSearch={true}
                 inputStyle={{ textAlign: "left" }}
-                // name="phone_no"
-                placeholder={field.placeholder}
                 onChange={(val) => {
-                  console.log(val);
-                  field.onChange(val.trim() ? `+${val}` : "");
+                  const num = `${val?.trim() ? "+" : ""}${val}`;
+                  setValue("phone_no", num, { shouldValidate: true });
                 }}
               />
-            )}
-          />
-          <p className="form-err">{errors["phone_no"]?.message || ""}</p>
-        </div> */}
+              <p className="form-err">{errors["phone_no"]?.message || ""}</p>
+            </div>
             <input
               ref={lastRef}
               type="submit"

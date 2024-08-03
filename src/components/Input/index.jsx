@@ -17,17 +17,17 @@ export default function ChatbotInput() {
       },
       disabled: context.userData,
     },
-    {
-      text: `Who am I ?`,
-      action: () => {
-        const msg = {
-          type: "to",
-          text: `Who are you ?`,
-          time: getTime(),
-        };
-        context.setMessage(msg);
-      },
-    },
+    // {
+    //   text: `Who am I ?`,
+    //   action: () => {
+    //     const msg = {
+    //       type: "to",
+    //       text: `Who are you ?`,
+    //       time: getTime(),
+    //     };
+    //     context.setMessage(msg);
+    //   },
+    // },
   ];
 
   const handleSendMessage = () => {
